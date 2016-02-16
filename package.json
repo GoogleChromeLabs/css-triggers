@@ -24,6 +24,7 @@
     "gulp-util": "^3.0.4",
     "gulp-watch": "^4.2.4",
     "gulp-watchify": "^0.5.0",
+    "handlebars": "^4.0.5",
     "lodash.assign": "^3.1.0",
     "run-sequence": "^1.1.0",
     "vinyl-buffer": "^1.0.0",
