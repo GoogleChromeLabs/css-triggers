@@ -26,7 +26,9 @@
     "gulp-watchify": "^0.5.0",
     "handlebars": "^4.0.5",
     "lodash.assign": "^3.1.0",
+    "node-static": "^0.7.7",
     "run-sequence": "^1.1.0",
+    "selenium-webdriver": "^2.52.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.1.1"
