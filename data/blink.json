@@ -1,0 +1,864 @@
+{
+  "properties": {
+    "align-content-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "align-items-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "align-self-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "backface-visibility-change": {
+      "layout": false,
+      "paint": false,
+      "composite": true
+    },
+    "backface-visibility-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-attachment-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-attachment-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-blend-mode-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-blend-mode-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-clip-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-color-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-color-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-image-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-image-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-origin-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-position-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-position-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-repeat-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-repeat-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-size-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "background-size-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-bottom-color-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-bottom-left-radius-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-bottom-left-radius-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-bottom-right-radius-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-bottom-right-radius-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-bottom-style-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-bottom-style-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-bottom-width-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "border-bottom-width-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "border-collapse-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "border-image-outset-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-image-outset-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-image-repeat-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-image-slice-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-image-slice-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-image-source-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-image-width-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-left-color-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-left-style-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-left-width-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "border-left-width-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "border-right-color-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-right-style-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-right-width-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "border-right-width-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "border-top-color-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-top-left-radius-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-top-left-radius-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-top-right-radius-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-top-right-radius-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-top-style-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "border-top-width-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "border-top-width-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "bottom-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "bottom-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "box-shadow-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "box-shadow-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "box-sizing-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "clear-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "clip-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "color-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "color-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "cursor-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "direction-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "display-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "flex-basis-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "flex-direction-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "flex-direction-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "flex-grow-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "flex-grow-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "flex-shrink-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "flex-shrink-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "flex-wrap-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "flex-wrap-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "float-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "float-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "font-family-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "font-family-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "font-kerning-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "font-size-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "font-style-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "font-variant-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "font-variant-ligatures-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "font-weight-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "height-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "height-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "justify-content-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "left-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "left-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "letter-spacing-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "line-height-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "list-style-image-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "list-style-position-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "list-style-type-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "margin-bottom-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "margin-bottom-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "margin-left-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "margin-left-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "margin-right-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "margin-right-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "margin-top-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "margin-top-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "max-height-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "max-height-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "max-width-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "max-width-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "min-height-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "min-height-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "min-width-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "min-width-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "opacity-change": {
+      "layout": false,
+      "paint": false,
+      "composite": true
+    },
+    "opacity-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "order-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "order-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "orphans-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "outline-color-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "outline-offset-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "outline-offset-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "outline-style-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "outline-width-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "outline-width-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "overflow-wrap-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "overflow-x-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "overflow-x-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "overflow-y-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "overflow-y-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "padding-bottom-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "padding-bottom-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "padding-left-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "padding-left-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "padding-right-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "padding-right-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "padding-top-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "padding-top-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "perspective-change": {
+      "layout": false,
+      "paint": false,
+      "composite": true
+    },
+    "perspective-initial": {
+      "layout": false,
+      "paint": false,
+      "composite": true
+    },
+    "perspective-origin-change": {
+      "layout": false,
+      "paint": false,
+      "composite": true
+    },
+    "perspective-origin-initial": {
+      "layout": false,
+      "paint": false,
+      "composite": true
+    },
+    "pointer-events-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "position-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "resize-initial": {
+      "layout": true,
+      "paint": false,
+      "composite": true
+    },
+    "right-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "right-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "table-layout-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "text-align-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "text-decoration-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "text-indent-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "text-indent-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "text-rendering-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "text-rendering-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "text-shadow-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "text-shadow-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "text-transform-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "top-change": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "top-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "transform-change": {
+      "layout": false,
+      "paint": false,
+      "composite": true
+    },
+    "transform-initial": {
+      "layout": false,
+      "paint": false,
+      "composite": true
+    },
+    "transform-origin-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "transform-origin-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "transform-style-initial": {
+      "layout": false,
+      "paint": false,
+      "composite": true
+    },
+    "unicode-bidi-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "vertical-align-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "visibility-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "white-space-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "widows-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "width-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "word-break-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "word-spacing-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "word-wrap-initial": {
+      "layout": true,
+      "paint": true,
+      "composite": true
+    },
+    "z-index-change": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    },
+    "z-index-initial": {
+      "layout": false,
+      "paint": true,
+      "composite": true
+    }
+  }
+}
