@@ -271,6 +271,7 @@ const template = handlebars.compile(`<!doctype html>
 </body>
 </html>`);
 
+fs.mkdirSync('html');
 Object.keys(properties).forEach(property => {
   var values = properties[property];
   if(values.length == 0) {
@@ -278,13 +279,13 @@ Object.keys(properties).forEach(property => {
   }
   if(values.length == 2) {
     fs.writeFileSync(
-      `${property}-change.html`,
+      `html/${property}-change.html`,
       template({property, initialValue: values[0], activeValue: values[1]})
     );
     values.shift();
   }
   fs.writeFileSync(
-    `${property}-initial.html`,
+    `html/${property}-initial.html`,
     template({property, activeValue: properties[property][0]})
   );
 });
