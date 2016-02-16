@@ -15,6 +15,7 @@ const valueSets = {
   ],
   percent: ['20%', '70%'],
   dualPercent: ['20% 20%', '70% 70%'],
+  pixels: ['2px', '3px'],
   lineStyle: ['dashed', 'dotted'],
   verticalSide: ['top', 'bottom'],
   horizontalSide: ['left', 'right'],
@@ -38,7 +39,7 @@ const properties = {
   'align-items': valueSets['flexPositions'],
   'align-self': valueSets['flexPositions'],
   'backface-visibility': ['hidden'],
-  'background-attachment': ['fixed', 'scroll'],
+  'background-attachment': ['fixed', 'local'],
   'background-blend-mode': valueSets['blendMode'],
   'background-clip': valueSets['box'],
   'background-color': valueSets['color'],
@@ -51,24 +52,24 @@ const properties = {
   'border-bottom-left-radius': valueSets['percent'],
   'border-bottom-right-radius': valueSets['percent'],
   'border-bottom-style': valueSets['lineStyle'],
-  'border-bottom-width': valueSets['percent'],
+  'border-bottom-width': valueSets['pixels'],
   'border-collapse': ['collapse'],
   'border-image-outset': valueSets['percent'],
-  'border-image-repeat': valueSets['axis'],
+  'border-image-repeat': ['repeat', 'round'],
   'border-image-slice': valueSets['percent'],
   'border-image-source': valueSets['image'],
   'border-image-width': valueSets['percent'],
   'border-left-color': valueSets['color'],
   'border-left-style': valueSets['lineStyle'],
-  'border-left-width': valueSets['percent'],
+  'border-left-width': valueSets['pixels'],
   'border-right-color': valueSets['color'],
   'border-right-style': valueSets['lineStyle'],
-  'border-right-width': valueSets['percent'],
+  'border-right-width': valueSets['pixels'],
   'border-top-color': valueSets['color'],
   'border-top-left-radius': valueSets['percent'],
   'border-top-right-radius': valueSets['percent'],
   'border-top-style': valueSets['lineStyle'],
-  'border-top-width': valueSets['percent'],
+  'border-top-width': valueSets['pixels'],
   'bottom': valueSets['percent'],
   'box-shadow': valueSets['shadow'],
   'box-sizing': valueSets['box'],
@@ -111,10 +112,9 @@ const properties = {
   'order': valueSets['number'],
   'orphans': valueSets['number'],
   'outline-color': valueSets['color'],
-  'outline-offset': valueSets['percent'],
+  'outline-offset': valueSets['pixels'],
   'outline-style': valueSets['lineStyle'],
-  'outline-width': valueSets['percent'],
-  'overflow-wrap': [], // TODO
+  'outline-width': valueSets['pixels'],
   'overflow-x': ['hidden', 'scroll'],
   'overflow-y': ['hidden', 'scroll'],
   'padding-bottom': valueSets['percent'],
@@ -150,6 +150,29 @@ const properties = {
   'z-index': valueSets['number'],
 };
 
+const additionalProperties = {
+  'z-index': {'position': 'absolute'},
+  'top': {'position': 'absolute'},
+  'left': {'position': 'absolute'},
+  'right': {'position': 'absolute'},
+  'bottom': {'position': 'absolute'},
+  'border-top-color': {'border-style': 'solid'},
+  'border-top-width': {'border-style': 'solid'},
+  'border-top-left-radius': {'border-style': 'solid'},
+  'border-top-right-radius': {'border-style': 'solid'},
+  'border-left-color': {'border-style': 'solid'},
+  'border-left-width': {'border-style': 'solid'},
+  'border-right-color': {'border-style': 'solid'},
+  'border-right-width': {'border-style': 'solid'},
+  'border-bottom-color': {'border-style': 'solid'},
+  'border-bottom-left-radius': {'border-style': 'solid'},
+  'border-bottom-right-radius': {'border-style': 'solid'},
+  'clip': {'position': 'absolute'},
+  'outline-width': {'outline-style': 'solid'},
+  'outline-color': {'outline-style': 'solid'},
+  'outline-offset': {'outline-style': 'solid'},
+}
+
 const template = handlebars.compile(`<!doctype html>
 <html>
 <head>
@@ -158,13 +181,15 @@ const template = handlebars.compile(`<!doctype html>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
 
-  <title>backface-visibility</title>
+  <title>{{property}}</title>
   <style>
-    #targetElement {
-      will-change: backface-visibility;
+    #targetElement, #targetElement * {
       background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAARklEQVQ4EWOcPn36fwYaABaQmY6OjlQ1ev/+/QxMVDURybBRg+GBMRoUo0EBDwE4YzRVjAYFPATgjNFUAQ8KcJ0HqqOoDQC9BAgxeGiZ2QAAAABJRU5ErkJggg==);
 
-
+      will-change: {{property}};
+      {{#each additionalProperties}}
+        {{@key}}: {{this}};
+      {{/each}}
       {{#if initialValue}}
         {{property}}: {{initialValue}};
       {{/if}}
@@ -222,21 +247,32 @@ const template = handlebars.compile(`<!doctype html>
 </body>
 </html>`);
 
-fs.mkdirSync('html');
+try {
+  fs.mkdirSync('html');
+}catch(e){}
 Object.keys(properties).forEach(property => {
-  var values = properties[property];
+  var values = properties[property].slice();
   if(values.length == 0) {
     return;
   }
   if(values.length == 2) {
     fs.writeFileSync(
       `html/${property}-change.html`,
-      template({property, initialValue: values[0], activeValue: values[1]})
+      template({
+        property,
+        initialValue: values[0],
+        activeValue: values[1],
+        additionalProperties: additionalProperties[property]
+      })
     );
     values.shift();
   }
   fs.writeFileSync(
     `html/${property}-initial.html`,
-    template({property, activeValue: properties[property][0]})
+    template({
+      property,
+      activeValue: properties[property][0],
+      additionalProperties: additionalProperties[property]
+    })
   );
 });
