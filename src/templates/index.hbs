@@ -47,7 +47,7 @@ Paul & Surma
 -->
 <body>
   <!-- @VERSION@ -->
-  <header class="app-header">
+  <header class="js-header app-header">
     <h1 class="app-header__title">CSS Triggers</h1>
     <div class="app-header__labels-container" aria-hidden="true">
 
@@ -122,16 +122,27 @@ Paul & Surma
       Made by <a href="https://twitter.com/aerotwist">Paul Lewis</a> and <a href="https://twitter.com/surmair">Surma</a>. <a href="https://github.com/googlechrome/css-triggers">See the source code</a>.
       </div>
 
+      <section class="js-details property-details">
+
+        <div class="js-details-bg property-details__background"></div>
+        <div class="js-details-masthead property-details__masthead"></div>
+        <div class="js-details-content property-details__content">
+
+          <div class="property-details__content-header">
+            <h1 class="js-details-property-name property-details__property-name">@PROPERTY_NAME@</h1>
+            <button class="js-details-close property-details__close">Close</button>
+          </div>
+
+          <div class="property-details__content-body">
+            <p class="js-details-property-description property-details__property-description">
+              @PROPERTY_DESCRIPTION@
+            </p>
+          </div>
+        </div>
+
+      </section>
+
     </main>
-
-    <section class="js-details property-details">
-
-      <div class="js-details-bg property-details__background"></div>
-      <div class="js-details-content property-details__content">
-        <button class="js-details-close">Close</button>
-      </div>
-
-    </section>
 
   </section>
   <script src="scripts/css-triggers-core.js"></script>

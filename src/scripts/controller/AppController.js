@@ -15,16 +15,21 @@
  * limitations under the License.
  */
 
+import messages from '../messages/Messages';
 import routerInstance from '../libs/Router';
 import FLIP from '../libs/FLIP';
 
 export default class AppController {
 
   constructor () {
+
+    this.selectedProperty = null;
+
     this.appContainer = document.querySelector('.app-container');
     this.appLinks = document.querySelectorAll('.js-deeplink');
     this.appListItems = document.querySelectorAll('.js-property');
     this.appEngineLabels = document.querySelector('.js-labels');
+    this.appHeader = document.querySelector('.js-header');
 
     this.details = document.querySelector('.js-details');
     this.detailsCloseButton = this.details.querySelector('.js-details-close');
@@ -32,8 +37,14 @@ export default class AppController {
         this.details.querySelector('.js-details-container');
     this.detailsBackground =
         this.details.querySelector('.js-details-bg');
+    this.detailsMasthead =
+        this.details.querySelector('.js-details-masthead');
     this.detailsContent =
         this.details.querySelector('.js-details-content');
+    this.detailsPropertyName =
+        this.details.querySelector('.js-details-property-name');
+    this.detailsPropertyDescription =
+        this.details.querySelector('.js-details-property-description');
 
     this.showDetails = this.showDetails.bind(this);
     this.hideDetails = this.hideDetails.bind(this);
@@ -44,6 +55,8 @@ export default class AppController {
   }
 
   showDetails (data) {
+
+    this.selectedProperty = data;
 
     // From Tween.js (MIT license)
     // @see https://github.com/tweenjs/tween.js/blob/master/src/Tween.js
@@ -56,6 +69,9 @@ export default class AppController {
         .querySelector(`.js-property[data-property="${data}"]`);
 
     const targetBCR = target.getBoundingClientRect();
+    const targetTop = target.offsetTop;
+    const targetClass = target
+        .querySelector('.app-main__property-engine').className;
 
     // Now move all the other entries either up or down, depending on where
     // they are in relation to the target.
@@ -74,31 +90,41 @@ export default class AppController {
 
     // Now set up the animation of the details view.
     // Start by positioning the details element on the current target.
-    this.details.style.top = `${target.offsetTop - this.scrollTop}px`;
+    this.details.style.top = `${targetTop}px`;
 
     // Create a FLIP group for animating the background and elements.
     const flip = FLIP.group([{
       element: this.detailsBackground,
       easing: timingFunctionExpand,
-      duration: 500,
+      duration: 450,
       opacity: false
     }, {
       element: this.detailsContent,
       easing: timingFunctionExpand,
-      duration: 600,
-      delay: 250,
+      duration: 550,
+      delay: 200,
       transform: false
+    }, {
+      element: this.detailsMasthead,
+      easing: timingFunctionExpand,
+      duration: 450,
+      opacity: false
     }]);
 
     // Set up the initial styles.
     this.details.classList.add('visible');
+    this.appHeader.classList.add('collapsed');
 
     this.detailsBackground.style.left = `${targetBCR.width * -0.5}px`;
     this.detailsBackground.style.top = `0`;
     this.detailsBackground.style.width = `${targetBCR.width}px`;
     this.detailsBackground.style.height = `${targetBCR.height}px`;
 
-    this.detailsCloseButton.focus();
+    this.detailsMasthead.style.width = `${targetBCR.width}px`;
+    this.detailsMasthead.style.left = `${targetBCR.width * -0.5}px`;
+
+    this.setPropertyName();
+    this.setPropertyDescription(targetClass);
 
     // Snapshot the initial position.
     flip.first();
@@ -109,35 +135,147 @@ export default class AppController {
     this.detailsBackground.style.width = '';
     this.detailsBackground.style.height = '';
 
+    this.detailsMasthead.style.left = '';
+    this.detailsMasthead.style.width = '';
+
     this.details.classList.add('expanded');
 
     // Snapshot, invert with transform / opacity changes, and play using rAF.
     flip.last();
     flip.invert();
     flip.play();
+
+    const onFlipComplete = () => {
+      this.detailsContent.removeEventListener('flipComplete', onFlipComplete);
+      this.detailsCloseButton.focus();
+    };
+
+    this.detailsContent.addEventListener('flipComplete', onFlipComplete);
   }
 
   hideDetails (data) {
+
+    // From Tween.js (MIT license)
+    // @see https://github.com/tweenjs/tween.js/blob/master/src/Tween.js
+    const timingFunctionCollapse = function (t) {
+      return --t * t * t * t * t + 1;
+    };
+
+    const selector = `.js-property[data-property="${this.selectedProperty}"]`;
+    const target = document.querySelector(selector);
+    const targetBCR = target.getBoundingClientRect();
+
     for (var i = 0; i < this.appListItems.length; i++) {
       this.appListItems[i].classList.remove('up');
       this.appListItems[i].classList.remove('down');
     }
 
     this.appEngineLabels.classList.remove('up');
-    this.details.classList.remove('visible');
+
+    // Create a FLIP group for animating the background and elements.
+    const flip = FLIP.group([{
+      element: this.detailsBackground,
+      easing: timingFunctionCollapse,
+      duration: 350,
+      opacity: false
+    }, {
+      element: this.detailsBackground,
+      easing: timingFunctionCollapse,
+      duration: 250,
+      delay: 200,
+      transform: false
+    }, {
+      element: this.detailsContent,
+      easing: timingFunctionCollapse,
+      duration: 70,
+      transform: false
+    }, {
+      element: this.detailsMasthead,
+      easing: timingFunctionCollapse,
+      duration: 350
+    }]);
+
+    this.detailsMasthead.style.opacity = 1;
+    this.detailsBackground.style.opacity = 1;
+
+    flip.first();
+
     this.details.classList.remove('expanded');
+    this.appHeader.classList.remove('collapsed');
+
+    this.detailsBackground.style.opacity = 0;
+    this.detailsBackground.style.left = `${targetBCR.width * -0.5}px`;
+    this.detailsBackground.style.top = `0`;
+    this.detailsBackground.style.width = `${targetBCR.width}px`;
+    this.detailsBackground.style.height = `${targetBCR.height}px`;
+
+    this.detailsMasthead.style.opacity = 0;
+    this.detailsMasthead.style.width = `${targetBCR.width}px`;
+    this.detailsMasthead.style.left = `${targetBCR.width * -0.5}px`;
+    this.detailsMasthead.style.height = '1px';
+
+    flip.last();
+    flip.invert();
+    flip.play();
+
+    const onFlipComplete = () => {
+
+      this.detailsBackground
+          .removeEventListener('flipComplete', onFlipComplete);
+
+      this.selectedProperty = null;
+      this.details.classList.remove('visible');
+      this.detailsBackground.style.opacity = '';
+      this.detailsMasthead.style.width = '';
+      this.detailsMasthead.style.left = '';
+      this.detailsMasthead.style.height = '';
+
+      target.focus();
+    };
+
+    this.detailsBackground.addEventListener('flipComplete', onFlipComplete);
+
+    return 300;
+  }
+
+  setPropertyName () {
+    console.log(this.selectedProperty);
+    this.detailsPropertyName.textContent = this.selectedProperty;
+  }
+
+  setPropertyDescription (targetClass) {
+    const mutationTrigger = /l\d p\d c\d/;
+    const matches = mutationTrigger.exec(targetClass);
+
+    if (matches === null) {
+      return;
+    }
+
+    if (typeof messages[matches[0]] === 'undefined') {
+      return;
+    }
+
+    this.detailsPropertyDescription.innerHTML =
+        messages[matches[0]].replace(/@PROPERTY_NAME@/, this.selectedProperty);
+
   }
 
   parseDocumentForDeeplinks () {
 
-    const linkBlock = function (e) {
+    const linkBlock = (e) => {
 
-      let url = e.currentTarget.getAttribute('href').replace(/^\//, '');
       routerInstance().then(router => {
+
+        if (this.selectedProperty !== null) {
+          return router.go('/');
+        }
+
+        let url = e.currentTarget.getAttribute('href').replace(/^\//, '');
         router.go(url);
       });
 
       e.preventDefault();
+      e.stopImmediatePropagation();
     };
 
     routerInstance().then(router => {
@@ -169,31 +307,31 @@ export default class AppController {
       }
     });
 
-    window.addEventListener('resize', (e) => {
-      const windowWidth = window.innerWidth;
-
-      if (windowWidth < 645) {
-        this.detailsBackground.classList.add('fixed');
-      } else {
-        this.detailsBackground.classList.remove('fixed');
-      }
+    document.addEventListener('click', (e) => {
+      routerInstance().then(router => router.go('/'));
     });
 
-    // this.details.addEventListener('click', (e) => {
-    //   routerInstance().then(router => router.go('/'));
-    // });
+    this.detailsContent.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    });
 
-    // this.detailsContent.addEventListener('click', (e) => {
-    //   e.preventDefault();
-    //   e.stopImmediatePropagation();
-    // });
+    window.addEventListener('keyup', (e) => {
 
-    // this.detailsCloseButton.addEventListener('click', (e) => {
-    //   e.preventDefault();
-    //   e.stopImmediatePropagation();
+      // Escape key only.
+      if (e.keyCode !== 27) {
+        return;
+      }
 
-    //   routerInstance().then(router => router.go('/'));
-    // });
+      routerInstance().then(router => router.go('/'));
+    });
+
+    this.detailsCloseButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+
+      routerInstance().then(router => router.go('/'));
+    });
   }
 
 }

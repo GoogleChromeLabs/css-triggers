@@ -98,7 +98,7 @@ export default class FLIP {
     // Wrap each in a FLIP helper.
     flips = flips.map(flip => new FLIP(flip));
 
-    return {
+    return Object.create({
 
       flips_: flips,
 
@@ -144,7 +144,7 @@ export default class FLIP {
 
         flips.forEach(flip => flip.play(startTime));
       }
-    }
+    });
   }
 
   /**
@@ -222,6 +222,9 @@ export default class FLIP {
       playerFunction = player[fn];
       this[fn] = playerFunction.bind(this);
     });
+
+    this.guid =
+        (Math.round(Math.random() * Number.MAX_SAFE_INTEGER)).toString(16);
   }
 
   /**
