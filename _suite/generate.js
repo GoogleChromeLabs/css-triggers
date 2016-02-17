@@ -41,7 +41,7 @@ const properties = {
   'backface-visibility': ['hidden'],
   'background-attachment': ['fixed', 'local'],
   'background-blend-mode': valueSets['blendMode'],
-  'background-clip': valueSets['box'],
+  'background-clip': ['padding-box', 'content-box'],
   'background-color': valueSets['color'],
   'background-image': valueSets['image'],
   'background-origin': valueSets['box'],
@@ -54,7 +54,7 @@ const properties = {
   'border-bottom-style': valueSets['lineStyle'],
   'border-bottom-width': valueSets['pixels'],
   'border-collapse': ['collapse'],
-  'border-image-outset': valueSets['percent'],
+  'border-image-outset': valueSets['pixels'],
   'border-image-repeat': ['repeat', 'round'],
   'border-image-slice': valueSets['percent'],
   'border-image-source': valueSets['image'],
@@ -91,14 +91,14 @@ const properties = {
   'font-style': ['italic', 'oblique'],
   'font-variant': ['small-caps', 'common-ligatures'],
   'font-variant-ligatures': ['common-ligatures', 'historical-ligatures'],
-  'font-weight': valueSets['fraction'],
+  'font-weight': ['300','700'],
   'height': valueSets['percent'],
   'justify-content': valueSets['flexPositions'],
   'left': valueSets['percent'],
-  'letter-spacing': valueSets['percent'],
+  'letter-spacing': valueSets['pixels'],
   'line-height': valueSets['percent'],
   'list-style-image': valueSets['image'],
-  'list-style-position': ['outside', 'inside'],
+  'list-style-position': ['inside'],
   'list-style-type': ['circle', 'square'],
   'margin-bottom': valueSets['percent'],
   'margin-left': valueSets['percent'],
@@ -145,7 +145,7 @@ const properties = {
   'widows': valueSets['number'],
   'width': valueSets['percent'],
   'word-break': ['break-all', 'keep-all'],
-  'word-spacing': valueSets['percent'],
+  'word-spacing': valueSets['pixels'],
   'word-wrap': ['break-word'],
   'z-index': valueSets['number'],
 };
@@ -165,6 +165,7 @@ const additionalProperties = {
   'border-right-color': {'border-style': 'solid'},
   'border-right-width': {'border-style': 'solid'},
   'border-bottom-color': {'border-style': 'solid'},
+  'border-bottom-width': {'border-style': 'solid'},
   'border-bottom-left-radius': {'border-style': 'solid'},
   'border-bottom-right-radius': {'border-style': 'solid'},
   'clip': {'position': 'absolute'},
@@ -221,6 +222,16 @@ const template = handlebars.compile(`<!doctype html>
         <li>Two</li>
         <li>Three</li>
       </ul>
+      <table>
+        <tr>
+          <td>a</td>
+          <td>b</td>
+        </tr>
+        <tr>
+          <td>c</td>
+          <td>d</td>
+        </tr>
+      </table>
     </div>
     <div id="siblingNext">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at consequat mauris, tempor lacinia nibh. Maecenas cursus lacinia nulla et sollicitudin. Ut dignissim risus ac purus vulputate volutpat. Suspendisse pharetra eget neque id vestibulum. Nunc vestibulum interdum neque. Aenean cursus ultrices turpis id pharetra. Suspendisse potenti. Praesent non lorem quis nulla hendrerit elementum. Duis pellentesque fringilla varius. Suspendisse potenti. Vestibulum et nisl sed tortor tincidunt fermentum. Nunc ut dolor in ligula consectetur elementum porta vulputate nisi. Curabitur vitae leo fermentum, feugiat tortor vel, fringilla nunc.</div>
   </div>
