@@ -176,25 +176,6 @@ gulp.task('handlebars', function () {
         return counterValue++;
       },
 
-      messageValue: function (val) {
-
-        var msg;
-
-        if (val.layout && val.paint && val.composite) {
-          msg = 'triggers layout, paint, and composite';
-        } else if (!val.layout && val.paint && val.composite) {
-          msg = 'does not trigger layout, but does trigger paint and composite';
-        } else if (!val.layout && !val.paint && val.composite) {
-          msg = 'does not trigger layout or paint, but does trigger composite';
-        } else if (val.layout && !val.paint && val.composite) {
-          msg = 'does not trigger paint, but does trigger layout and composite';
-        } else {
-          msg = 'does not trigger layout, paint, or composite';
-        }
-
-        return msg;
-      },
-
       classValue: function (value) {
         var lv = 'x';
         var pv = 'x';

@@ -15,13 +15,6 @@
  * limitations under the License.
  */
 
-const container = document.querySelector('.app-container');
-const header = document.querySelector('.app-header');
+import AppController from './controller/AppController';
 
-container.addEventListener('scroll', (e) => {
-  if (container.scrollTop > 126) {
-    header.classList.add('extended');
-  } else {
-    header.classList.remove('extended');
-  }
-});
+new AppController();

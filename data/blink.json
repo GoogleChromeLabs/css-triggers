@@ -15,11 +15,6 @@
       "paint": true,
       "composite": true
     },
-    "backface-visibility-change": {
-      "layout": false,
-      "paint": false,
-      "composite": true
-    },
     "backface-visibility-initial": {
       "layout": false,
       "paint": true,
@@ -606,11 +601,6 @@
       "composite": true
     },
     "outline-width-initial": {
-      "layout": true,
-      "paint": true,
-      "composite": true
-    },
-    "overflow-wrap-initial": {
       "layout": true,
       "paint": true,
       "composite": true

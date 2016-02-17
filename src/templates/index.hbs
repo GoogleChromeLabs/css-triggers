@@ -55,15 +55,15 @@ Paul & Surma
         <ul class="app-header__labels">
           <li class="app-main__engine-labels-item">B</li>
           <li class="app-main__engine-labels-item">G</li>
-          <li class="app-main__engine-labels-item">E</li>
           <li class="app-main__engine-labels-item">W</li>
+          <li class="app-main__engine-labels-item">E</li>
         </ul>
 
         <ul class="app-header__labels">
           <li class="app-main__engine-labels-item">B</li>
           <li class="app-main__engine-labels-item">G</li>
-          <li class="app-main__engine-labels-item">E</li>
           <li class="app-main__engine-labels-item">W</li>
+          <li class="app-main__engine-labels-item">E</li>
         </ul>
       </div>
     </div>
@@ -73,19 +73,19 @@ Paul & Surma
 
       <div class="app-main__engines" aria-hidden="true">
 
-        <div class="app-main__engine-labels-container">
+        <div class="js-labels app-main__engine-labels-container">
           <ul class="app-main__engine-labels">
             <li class="app-main__engine-labels-item">Blink</li>
             <li class="app-main__engine-labels-item">Gecko</li>
-            <li class="app-main__engine-labels-item">EdgeHTML</li>
             <li class="app-main__engine-labels-item">WebKit</li>
+            <li class="app-main__engine-labels-item">EdgeHTML</li>
           </ul>
 
           <ul class="app-main__engine-labels">
             <li class="app-main__engine-labels-item">Blink</li>
             <li class="app-main__engine-labels-item">Gecko</li>
-            <li class="app-main__engine-labels-item">EdgeHTML</li>
             <li class="app-main__engine-labels-item">WebKit</li>
+            <li class="app-main__engine-labels-item">EdgeHTML</li>
           </ul>
         </div>
       </div>
@@ -93,25 +93,27 @@ Paul & Surma
       <div class="app-main__properties">
       {{!-- Each CSS Property --}}
       {{#each data}}
-        <div class="app-main__property">
-          <span class="property-name">{{@key}}</span>
-          <div class="app-main__property-state">
+        <div data-property="{{@key}}" class="js-property app-main__property">
+          <a tabindex="{{counter}}" title="Get details on {{@key}}" class="js-deeplink app-main__property-link" href="/{{@key}}">
+            <span class="property-name">{{@key}}</span>
+            <div class="app-main__property-state">
 
-            {{!-- Initial / Update --}}
-            {{#each this}}
-            <div class="app-main__property-state-entry">
-              <span class="condition-name">{{conditionValue @key}}</span>
-              <div class="app-main__property-condition">
-                {{!-- Engine --}}
-                {{#each this}}
-                <div tabindex="{{counter}}" title="{{@../../key}} {{messageValue this}} in {{@key}}" class="{{classValue this}} app-main__property-engine">
-                  <span class="app-main__property-value"></span>
+              {{!-- Initial / Update --}}
+              {{#each this}}
+              <div class="app-main__property-state-entry">
+                <span class="condition-name">{{conditionValue @key}}</span>
+                <div class="app-main__property-condition">
+                  {{!-- Engine --}}
+                  {{#each this}}
+                  <div  class="{{classValue this}} app-main__property-engine">
+                    <span class="app-main__property-value"></span>
+                  </div>
+                  {{/each}}
                 </div>
-                {{/each}}
               </div>
+              {{/each}}
             </div>
-            {{/each}}
-          </div>
+          </a>
         </div>
       {{/each}}
       </div>
@@ -121,6 +123,16 @@ Paul & Surma
       </div>
 
     </main>
+
+    <section class="js-details property-details">
+
+      <div class="js-details-bg property-details__background"></div>
+      <div class="js-details-content property-details__content">
+        <button class="js-details-close">Close</button>
+      </div>
+
+    </section>
+
   </section>
   <script src="scripts/css-triggers-core.js"></script>
 </body>

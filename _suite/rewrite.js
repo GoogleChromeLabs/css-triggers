@@ -1,6 +1,7 @@
 var fs = require('fs');
-var blink = JSON.parse(fs.readFileSync('data/blink.json'));
-var gecko = JSON.parse(fs.readFileSync('data/gecko.json'));
+var blink = JSON.parse(fs.readFileSync('../data/blink.json'));
+var gecko = JSON.parse(fs.readFileSync('../data/gecko.json'));
+var webkit = JSON.parse(fs.readFileSync('../data/webkit.json'));
 
 var newData = {'data': {}};
 var props = Object.keys(blink.properties);
@@ -14,6 +15,8 @@ for (var p = 0; p < props.length; p++) {
   var tag = props[p].endsWith('initial') ? 'initial' : 'change';
 
   if (!newData.data[newProp]) {
+
+    console.log('Making ' + newProp);
     createProp(newProp);
   }
 
@@ -30,9 +33,16 @@ for (var p = 0; p < props.length; p++) {
       gecko.properties[props[p]].paint;
   newData.data[newProp][tag].gecko.composite =
       gecko.properties[props[p]].composite;
+
+  newData.data[newProp][tag].webkit.layout =
+      webkit.properties[props[p]].layout;
+  newData.data[newProp][tag].webkit.paint =
+      webkit.properties[props[p]].paint;
+  newData.data[newProp][tag].webkit.composite =
+      webkit.properties[props[p]].composite;
 }
 
-fs.writeFileSync('data/data.json', JSON.stringify(newData));
+fs.writeFileSync('../data/data.json', JSON.stringify(newData));
 
 function createProp (name) {
   newData.data[name] = {
