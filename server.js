@@ -20,4 +20,4 @@ const app = express();
 
 app.use(express.static('dist'));
 app.get('*', (req, res) => res.sendFile(__dirname + '/dist/index.html'));
-app.listen(8070, () => console.log('Server up.'));
+app.listen(8070, () => console.log('Server up on port 8070.'));
