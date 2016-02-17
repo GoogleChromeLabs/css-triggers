@@ -20,26 +20,9 @@ for (var p = 0; p < props.length; p++) {
     createProp(newProp);
   }
 
-  newData.data[newProp][tag].blink.layout =
-      blink.properties[props[p]].layout;
-  newData.data[newProp][tag].blink.paint =
-      blink.properties[props[p]].paint;
-  newData.data[newProp][tag].blink.composite =
-      blink.properties[props[p]].composite;
-
-  newData.data[newProp][tag].gecko.layout =
-      gecko.properties[props[p]].layout;
-  newData.data[newProp][tag].gecko.paint =
-      gecko.properties[props[p]].paint;
-  newData.data[newProp][tag].gecko.composite =
-      gecko.properties[props[p]].composite;
-
-  newData.data[newProp][tag].webkit.layout =
-      webkit.properties[props[p]].layout;
-  newData.data[newProp][tag].webkit.paint =
-      webkit.properties[props[p]].paint;
-  newData.data[newProp][tag].webkit.composite =
-      webkit.properties[props[p]].composite;
+  Object.assign(newData.data[newProp][tag].blink, blink.properties[props[p]]);
+  Object.assign(newData.data[newProp][tag].gecko, gecko.properties[props[p]]);
+  Object.assign(newData.data[newProp][tag].webkit, webkit.properties[props[p]]);
 }
 
 fs.writeFileSync('../data/data.json', JSON.stringify(newData));
