@@ -2,6 +2,7 @@ var fs = require('fs');
 var blink = JSON.parse(fs.readFileSync('../data/blink.json'));
 var gecko = JSON.parse(fs.readFileSync('../data/gecko.json'));
 var webkit = JSON.parse(fs.readFileSync('../data/webkit.json'));
+var edgehtml = JSON.parse(fs.readFileSync('../data/edgehtml.json'));
 
 var newData = {'data': {}};
 var props = Object.keys(blink.properties);
@@ -23,6 +24,7 @@ for (var p = 0; p < props.length; p++) {
   Object.assign(newData.data[newProp][tag].blink, blink.properties[props[p]]);
   Object.assign(newData.data[newProp][tag].gecko, gecko.properties[props[p]]);
   Object.assign(newData.data[newProp][tag].webkit, webkit.properties[props[p]]);
+  Object.assign(newData.data[newProp][tag].edgehtml, edgehtml.properties[props[p]]);
 }
 
 fs.writeFileSync('../data/data.json', JSON.stringify(newData));
