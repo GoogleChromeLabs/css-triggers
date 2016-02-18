@@ -23,7 +23,7 @@ html, body {
   height: 100%;
   width: 100%;
   min-width: 320px;
-  font-family: 'Roboto';
+  font-family: 'Roboto', Helvetica, sans-serif;
   font-weight: 400;
   color: #444;
   -webkit-font-smoothing: antialiased;
@@ -318,7 +318,7 @@ body {
 }
 
 .property-name {
-  font-family: 'RobotoMono';
+  font-family: 'RobotoMono', monospace;
   font-size: 14px;
   color: #263238;
   line-height: 14px;
@@ -396,7 +396,7 @@ body {
 }
 
 .property-details__property-name {
-  font-family: 'RobotoMono';
+  font-family: 'RobotoMono', monospace;
   font-size: 18px;
   color: #FFFFFF;
   line-height: 1;
