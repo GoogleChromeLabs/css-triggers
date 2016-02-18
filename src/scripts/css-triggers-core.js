@@ -18,3 +18,5 @@
 import AppController from './controller/AppController';
 
 new AppController();
+
+navigator.serviceWorker.register('/sw.js', {scope: '/'});

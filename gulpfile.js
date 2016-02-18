@@ -141,7 +141,7 @@ gulp.task('third_party', function () {
 gulp.task('serviceworker', function () {
   gulp.src('./src/scripts/sw.js')
     .pipe(replace(/@VERSION@/g, version))
-    .pipe(gulp.dest('./dist/scripts'));
+    .pipe(gulp.dest('./dist/'));
 });
 
 /** Watches */
@@ -251,4 +251,3 @@ gulp.task('default', function () {
 gulp.task('dev', function () {
   return runSequence('clean', 'getversion', 'handlebars', allTasks, 'watch');
 });
-
