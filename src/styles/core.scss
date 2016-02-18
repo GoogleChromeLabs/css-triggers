@@ -281,11 +281,15 @@ body {
     width: 24px;
     border-radius: 2px;
     height: 6px;
-    background: rgba(144,137,228,0.1);
+    background: rgba(144,137,228,0.2);
   }
 
   &.l1::before {
     background: rgba(144,137,228,1);
+  }
+
+  &.lx::before {
+    background: rgba(144,137,228,0.05);
   }
 
   // Paint
@@ -294,7 +298,7 @@ body {
     width: 24px;
     border-radius: 2px;
     height: 6px;
-    background: rgba(144,170,101,0.1);
+    background: rgba(144,170,101,0.2);
     text-indent: -10000px;
     overflow: hidden;
   }
@@ -303,17 +307,25 @@ body {
     background: rgba(144,170,101,1);
   }
 
+  &.px .app-main__property-value {
+    background: rgba(144,170,101,0.05);
+  }
+
   // Composite
   &::after {
     content: '';
     width: 24px;
     border-radius: 2px;
     height: 6px;
-    background: rgba(69,95,21,0.1);
+    background: rgba(69,95,21,0.2);
   }
 
   &.c1::after {
     background: rgba(69,95,21,1);
+  }
+
+  &.cx::after {
+    background: rgba(69,95,21,0.05);
   }
 }
 
@@ -456,14 +468,15 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  height: 88px;
+  height: 108px;
   flex: 1;
 
   .app-main__property-state-entry {
     flex-direction: column;
     height: 88px;
     width: 128px;
-    padding: 0;
+    padding: 40px 0 0 0;
+    position: relative;
   }
 
   .app-main__property-condition {
@@ -472,6 +485,18 @@ body {
 
   .app-main__property-condition {
     height: 24px;
+  }
+
+  .app-main__engine-labels {
+    position: absolute;
+    top: 24px;
+    transform: rotate(-90deg);
+    transform-origin: 0 0;
+    height: 128px;
+
+    &:first-of-type {
+      visibility: visible;
+    }
   }
 
   label {
@@ -647,6 +672,10 @@ body {
     p {
       max-width: 432px;
     }
+  }
+
+  .property-details__property-name {
+    font-size: 24px;
   }
 }
 
