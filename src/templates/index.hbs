@@ -37,9 +37,7 @@ limitations under the License.
                                      __/ | __/ |
                                     |___/ |___/
 
-That's right, it's back! And this time it has the data from Blink, Gecko,
-WebKit and EdgeHTML! And that makes everyone feel like a winner. High fives all
-round? We think so.
+That's right, it's back! And this time it has the data from Blink, Gecko, WebKit and EdgeHTML! And that makes everyone feel like a winner. High fives all round? We think so.
 
 <3'z,
 Paul & Surma
@@ -100,12 +98,12 @@ Paul & Surma
 
               {{!-- Initial / Update --}}
               {{#each this}}
-              <div class="app-main__property-state-entry">
+              <div class="app-main__property-state-entry {{@key}}">
                 <span class="condition-name">{{conditionValue @key}}</span>
                 <div class="app-main__property-condition">
                   {{!-- Engine --}}
                   {{#each this}}
-                  <div  class="{{classValue this}} app-main__property-engine">
+                  <div  class="{{classValue this}} app-main__property-engine {{@key}}">
                     <span class="app-main__property-value"></span>
                   </div>
                   {{/each}}
@@ -119,7 +117,7 @@ Paul & Surma
       </div>
 
       <div class="credits">
-      Made by <a href="https://twitter.com/aerotwist">Paul Lewis</a> and <a href="https://twitter.com/surmair">Surma</a>. <a href="https://github.com/googlechrome/css-triggers">See the source code</a>.
+      Made by <a href="https://twitter.com/aerotwist">Paul</a> and <a href="https://twitter.com/surmair">Surma</a>. <a href="https://github.com/googlechrome/css-triggers">See the source code</a>.
       </div>
 
       <section class="js-details property-details">
@@ -134,9 +132,68 @@ Paul & Surma
           </div>
 
           <div class="property-details__content-body">
-            <p class="js-details-property-description property-details__property-description">
+            <div class="js-details-property-description property-details__property-description">
               @PROPERTY_DESCRIPTION@
-            </p>
+            </div>
+
+            <aside class="js-details-breakdown property-details__breakdown">
+
+              <!-- Change from default -->
+              <div class="app-main__property-state-entry initial">
+                <div id="details-default" class="app-main__property-condition">
+
+                  <!-- Blink -->
+                  <div class="app-main__property-engine blink">
+                    <span class="app-main__property-value"></span>
+                  </div>
+
+                  <!-- Gecko -->
+                  <div class="app-main__property-engine gecko">
+                    <span class="app-main__property-value"></span>
+                  </div>
+
+                  <!-- WebKit -->
+                  <div class="app-main__property-engine webkit">
+                    <span class="app-main__property-value"></span>
+                  </div>
+
+                  <!-- EdgeHTML -->
+                  <div class="app-main__property-engine edgehtml">
+                    <span class="app-main__property-value"></span>
+                  </div>
+                </div>
+                <label for="details-default">Change from default</label>
+              </div>
+
+              <!-- Subsequent updates -->
+              <div class="app-main__property-state-entry change">
+                <div id="details-update" class="app-main__property-condition">
+
+                  <!-- Blink -->
+                  <div class="app-main__property-engine blink">
+                    <span class="app-main__property-value"></span>
+                  </div>
+
+                  <!-- Gecko -->
+                  <div class="app-main__property-engine gecko">
+                    <span class="app-main__property-value"></span>
+                  </div>
+
+                  <!-- WebKit -->
+                  <div class="app-main__property-engine webkit">
+                    <span class="app-main__property-value"></span>
+                  </div>
+
+                  <!-- EdgeHTML -->
+                  <div class="app-main__property-engine edgehtml">
+                    <span class="app-main__property-value"></span>
+                  </div>
+
+                </div>
+
+                <label for="details-change">Subsequent updates</label>
+              </div>
+            </div>
           </div>
         </div>
 

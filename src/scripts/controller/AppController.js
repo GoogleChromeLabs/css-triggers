@@ -24,6 +24,7 @@ export default class AppController {
   constructor () {
 
     this.selectedProperty = null;
+    this.mutationTrigger = /l\d p\d c\d/;
 
     this.appContainer = document.querySelector('.app-container');
     this.appLinks = document.querySelectorAll('.js-deeplink');
@@ -45,6 +46,8 @@ export default class AppController {
         this.details.querySelector('.js-details-property-name');
     this.detailsPropertyDescription =
         this.details.querySelector('.js-details-property-description');
+    this.detailsBreakdown =
+        this.details.querySelector('.js-details-breakdown');
 
     this.showDetails = this.showDetails.bind(this);
     this.hideDetails = this.hideDetails.bind(this);
@@ -72,6 +75,21 @@ export default class AppController {
     const targetTop = target.offsetTop;
     const targetClass = target
         .querySelector('.app-main__property-engine').className;
+    const targetClasses = {
+      initial: {
+        blink: target.querySelector('.initial .blink').className,
+        gecko: target.querySelector('.initial .gecko').className,
+        webkit: target.querySelector('.initial .webkit').className,
+        edgehtml: target.querySelector('.initial .edgehtml').className
+      },
+
+      change: {
+        blink: target.querySelector('.change .blink').className,
+        gecko: target.querySelector('.change .gecko').className,
+        webkit: target.querySelector('.change .webkit').className,
+        edgehtml: target.querySelector('.change .edgehtml').className
+      }
+    };
 
     // Now move all the other entries either up or down, depending on where
     // they are in relation to the target.
@@ -87,6 +105,7 @@ export default class AppController {
       this.appListItems[i].classList.add(direction);
     }
     this.appEngineLabels.classList.add('up');
+    this.appContainer.classList.add('locked');
 
     // Now set up the animation of the details view.
     // Start by positioning the details element on the current target.
@@ -125,6 +144,7 @@ export default class AppController {
 
     this.setPropertyName();
     this.setPropertyDescription(targetClass);
+    this.setPropertyBreakdown(targetClasses);
 
     // Snapshot the initial position.
     flip.first();
@@ -225,6 +245,8 @@ export default class AppController {
 
       this.selectedProperty = null;
       this.details.classList.remove('visible');
+      this.appContainer.classList.remove('locked');
+
       this.detailsBackground.style.opacity = '';
       this.detailsMasthead.style.width = '';
       this.detailsMasthead.style.left = '';
@@ -239,13 +261,12 @@ export default class AppController {
   }
 
   setPropertyName () {
-    console.log(this.selectedProperty);
     this.detailsPropertyName.textContent = this.selectedProperty;
   }
 
   setPropertyDescription (targetClass) {
-    const mutationTrigger = /l\d p\d c\d/;
-    const matches = mutationTrigger.exec(targetClass);
+
+    const matches = this.mutationTrigger.exec(targetClass);
 
     if (matches === null) {
       return;
@@ -260,6 +281,18 @@ export default class AppController {
 
   }
 
+  setPropertyBreakdown (targetClasses) {
+
+    const states = Object.keys(targetClasses);
+    states.forEach(state => {
+      const engines = Object.keys(targetClasses[state]);
+      engines.forEach(engine => {
+        this.detailsBreakdown.querySelector(`.${state} .${engine}`).className =
+            targetClasses[state][engine];
+      });
+    });
+  }
+
   parseDocumentForDeeplinks () {
 
     const linkBlock = (e) => {
@@ -270,7 +303,17 @@ export default class AppController {
           return router.go('/');
         }
 
-        let url = e.currentTarget.getAttribute('href').replace(/^\//, '');
+        let eventTarget = e.currentTarget || e.target;
+        while (eventTarget.nodeName.toLowerCase() !== 'a') {
+
+          // Bail if we get back up to the document level.
+          if (eventTarget.parentNode === null) {
+            return;
+          }
+          eventTarget = eventTarget.parentNode;
+        }
+
+        const url = eventTarget.getAttribute('href').replace(/^\//, '');
         router.go(url);
       });
 
@@ -333,5 +376,4 @@ export default class AppController {
       routerInstance().then(router => router.go('/'));
     });
   }
-
 }

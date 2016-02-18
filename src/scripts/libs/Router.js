@@ -147,7 +147,7 @@ class Router {
       return;
     }
 
-    history.pushState(undefined, '', path);
+    history.pushState(null, '', path);
     this.manageState();
   }
 

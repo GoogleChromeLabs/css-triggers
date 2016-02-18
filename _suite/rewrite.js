@@ -24,7 +24,8 @@ for (var p = 0; p < props.length; p++) {
   Object.assign(newData.data[newProp][tag].blink, blink.properties[props[p]]);
   Object.assign(newData.data[newProp][tag].gecko, gecko.properties[props[p]]);
   Object.assign(newData.data[newProp][tag].webkit, webkit.properties[props[p]]);
-  Object.assign(newData.data[newProp][tag].edgehtml, edgehtml.properties[props[p]]);
+  Object.assign(newData.data[newProp][tag].edgehtml,
+      edgehtml.properties[props[p]]);
 }
 
 fs.writeFileSync('../data/data.json', JSON.stringify(newData));

@@ -41,13 +41,19 @@ body {
 
 .app-container {
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding-top: 56px;
   /* Not using will-change here because it creates a new initial containing
      block, which will stop any position: fixed children rendering correctly.
    */
+  -webkit-overflow-scrolling: touch;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+
+  &.locked {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
 }
 
 .app-header {
@@ -331,7 +337,7 @@ body {
   width: 100%;
   max-width: 800px;
   line-height: 56px;
-  padding: 24px 0 336px 0;
+  padding: 24px 0 384px 0;
   color: rgba(0,0,0,0.54);
   text-align: center;
 
@@ -356,7 +362,7 @@ body {
   height: 24px;
   border: 0;
   position: absolute;
-  left: 12px;
+  right: 12px;
   top: 12px;
   overflow: hidden;
   text-indent: -20000px;
@@ -384,13 +390,14 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+
+  /*display: flex;*/
+  /*flex-direction: column;*/
 }
 
 .property-details__property-name {
   font-family: 'RobotoMono';
-  font-size: 22px;
+  font-size: 18px;
   color: #FFFFFF;
   line-height: 1;
   margin: 0;
@@ -430,11 +437,50 @@ body {
 }
 
 .property-details__content-body {
-  flex: 1;
   color: #606060;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 16px;
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.property-details__property-description {
+  order: 2;
+}
+
+.property-details__breakdown {
+  padding: 16px 0 8px 0;
+  order: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 88px;
+  flex: 1;
+
+  .app-main__property-state-entry {
+    flex-direction: column;
+    height: 88px;
+    width: 128px;
+    padding: 0;
+  }
+
+  .app-main__property-condition {
+    width: 128px;
+  }
+
+  .app-main__property-condition {
+    height: 24px;
+  }
+
+  label {
+    font-size: 14px;
+    color: #607D8B;
+    line-height: 1;
+    margin: 0;
+    padding: 1em 0 0 0;
+  }
 }
 
 .property-details {
@@ -466,6 +512,11 @@ body {
 }
 
 @media (min-width: 645px) {
+
+  .app-container.locked {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
 
   .app-header.collapsed {
     transform: translateY(0);
@@ -553,6 +604,34 @@ body {
     transform: translateX(-50%);
     height: 452px;
     top: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .property-details__content-body {
+    flex-direction: row;
+    flex: 1;
+    padding: 0;
+  }
+
+  .property-details__property-description {
+    padding: 16px 0 16px 16px;
+    order: 1;
+    height: 292px;
+    max-width: initial;
+    border-right: 1px solid #DDDDDD;
+    box-sizing: border-box;
+  }
+
+  .property-details__breakdown {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    width: 224px;
+    height: 224px;
+    justify-content: space-around;
+    align-items: center;
+    flex: initial;
   }
 
   .property-details__masthead {
@@ -560,6 +639,14 @@ body {
     left: -421px;
     width: 842px;
     top: 0;
+  }
+
+  .property-details__property-description {
+    flex: 1;
+
+    p {
+      max-width: 432px;
+    }
   }
 }
 
