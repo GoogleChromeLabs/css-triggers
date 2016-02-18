@@ -1,4 +1,5 @@
 (function() {
+  var VALID_PROPERTIES = @PROPERTIES@;
   var CACHE_NAME_PREFIX = 'csstriggers';
   var CACHE_NAME_SUFFIX = '@VERSION@';
   var FILES_TO_CACHE = [
@@ -10,7 +11,7 @@
 
   self.oninstall = function(event) {
     var reqs = FILES_TO_CACHE.map(function(url) {
-      return new Request(url)
+      return new Request(url);
     });
 
     event.waitUntil(
@@ -45,7 +46,11 @@
             return response;
           }
 
-          return caches.match('/index.html');
+          var property = new URL(req.url).pathname.slice(1);
+          if(property === '' || VALID_PROPERTIES.indexOf(property) !== -1) {
+            return caches.match('/index.html');
+          }
+          return new Response('Not found', {status: 404});
         })
     );
   };
