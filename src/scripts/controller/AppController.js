@@ -30,6 +30,7 @@ export default class AppController {
     this.appLinks = document.querySelectorAll('.js-deeplink');
     this.appListItems = document.querySelectorAll('.js-property');
     this.appEngineLabels = document.querySelector('.js-labels');
+    this.appStateLabels = document.querySelector('.js-state-labels');
     this.appHeader = document.querySelector('.js-header');
 
     this.details = document.querySelector('.js-details');
@@ -104,6 +105,8 @@ export default class AppController {
 
       this.appListItems[i].classList.add(direction);
     }
+
+    this.appStateLabels.classList.add('up');
     this.appEngineLabels.classList.add('up');
     this.appContainer.classList.add('locked');
 
@@ -166,8 +169,7 @@ export default class AppController {
     flip.play();
 
     const onFlipComplete = () => {
-      this.detailsContent.removeEventListener('flipComplete', onFlipComplete);
-      this.detailsCloseButton.focus();
+      this.details.focus();
     };
 
     this.detailsContent.addEventListener('flipComplete', onFlipComplete);
@@ -190,6 +192,7 @@ export default class AppController {
       this.appListItems[i].classList.remove('down');
     }
 
+    this.appStateLabels.classList.remove('up');
     this.appEngineLabels.classList.remove('up');
 
     // Create a FLIP group for animating the background and elements.
@@ -252,7 +255,13 @@ export default class AppController {
       this.detailsMasthead.style.left = '';
       this.detailsMasthead.style.height = '';
 
-      target.focus();
+      const deepLink = target.querySelector('.js-deeplink');
+
+      if (deepLink === null) {
+        return;
+      }
+
+      deepLink.focus();
     };
 
     this.detailsBackground.addEventListener('flipComplete', onFlipComplete);

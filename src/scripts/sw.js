@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-(function() {
+(function () {
   var VALID_PROPERTIES = @PROPERTIES@;
   var CACHE_NAME_PREFIX = 'csstriggers';
   var CACHE_NAME_SUFFIX = '@VERSION@';
@@ -25,30 +25,35 @@
     '/styles/core.css',
     '/third_party/Roboto/Roboto-400.woff',
     '/third_party/Roboto/Roboto-500.woff',
-    '/third_party/Roboto/RobotoMono-400.woff'
+    '/third_party/Roboto/RobotoMono-400.woff',
+    '/manifest.json',
+    '/favicon.ico',
+    '/images/icon-192x192.png',
+    '/images/icon-384x384.png',
+    '/404-sw.html'
   ];
   var CACHE_NAME = CACHE_NAME_PREFIX + '-' + CACHE_NAME_SUFFIX;
 
-  self.oninstall = function(event) {
-    var reqs = FILES_TO_CACHE.map(function(url) {
+  self.oninstall = function (event) {
+    var reqs = FILES_TO_CACHE.map(function (url) {
       return new Request(url);
     });
 
     event.waitUntil(
       caches.open(CACHE_NAME)
-        .then(function(cache) {
+        .then(function (cache) {
           return cache.addAll(reqs);
         })
     );
   };
 
   // This only cleans old caches
-  self.onactivate = function(event) {
-    caches.keys().then(function(cacheNames) {
+  self.onactivate = function (event) {
+    caches.keys().then(function (cacheNames) {
       return Promise.all(
-        cacheNames.filter(function(cacheName) {
+        cacheNames.filter(function (cacheName) {
           return cacheName.startsWith(CACHE_NAME_PREFIX);
-        }).filter(function(cacheName) {
+        }).filter(function (cacheName) {
           return cacheName !== CACHE_NAME;
         }).map(caches.delete.bind(caches))
       );
@@ -56,21 +61,21 @@
   };
 
   // Always return index.html
-  self.onfetch = function(event) {
+  self.onfetch = function (event) {
     var req = event.request;
     return event.respondWith(
       caches
         .match(req)
-        .then(function(response) {
-          if(response) {
+        .then(function (response) {
+          if (response) {
             return response;
           }
 
           var property = new URL(req.url).pathname.slice(1);
-          if(property === '' || VALID_PROPERTIES.indexOf(property) !== -1) {
+          if (property === '' || VALID_PROPERTIES.indexOf(property) !== -1) {
             return caches.match('/index.html');
           }
-          return new Response('Not found', {status: 404});
+          return caches.match('/404-sw.html');
         })
     );
   };

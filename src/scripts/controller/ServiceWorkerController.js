@@ -16,11 +16,33 @@
  */
 
 export default class ServiceWorkerController {
-  constructor() {
-    if(!('serviceWorker' in navigator)) {
+  constructor () {
+
+    if (!('serviceWorker' in navigator)) {
       return;
     }
 
-    navigator.serviceWorker.register('/sw.js', {scope: '/'});
+    navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          registration.onupdatefound = event => {
+
+            console.log('A new Service Worker version has been found...');
+
+            // If an update is found the spec says that there is a new Service
+            // Worker installing, so we should wait for that to complete then
+            // show a notification to the user.
+            registration.installing.onstatechange = function (evt) {
+
+              if (this.state === 'installed') {
+                console.log('Service Worker Installed (version @VERSION@).');
+              } else {
+                console.log('New Service Worker state: ', this.state);
+              }
+
+            };
+          };
+        }, err => {
+          console.warn(err);
+        });
   }
 }

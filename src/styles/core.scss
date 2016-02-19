@@ -193,6 +193,7 @@ body {
 .app-main__property-link {
   text-decoration: none;
   display: block;
+  outline: none;
 }
 
 .app-main__engines {
@@ -243,6 +244,36 @@ body {
   background: #FFF;
   box-shadow: 0 6px 2px rgba(0,0,0,.12),
     0 2px 4px rgba(0,0,0,.24);
+}
+
+.app-main__state-labels-container {
+  border-top: 1px solid #EBEBEB;
+  background: #FFF;
+  box-shadow: 0 6px 2px rgba(0,0,0,.12),
+    0 2px 4px rgba(0,0,0,.24);
+  display: none;
+  flex-direction: row;
+  padding: 8px 16px;
+
+  &::before {
+    flex: 1;
+    content: '';
+    display: block;
+  }
+}
+
+.app-main__state-labels {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.app-main__state-label {
+  font-size: 12px;
+  color: #607D8B;
+  width: 136px;
+  text-align: center;
 }
 
 .app-main__property-link {
@@ -417,7 +448,7 @@ body {
 }
 
 .property-details__content-header {
-  height: 160px;
+  height: 100px;
   position: relative;
 }
 
@@ -456,6 +487,7 @@ body {
   flex: 1;
   overflow-x: hidden;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .property-details__property-description {
@@ -527,7 +559,7 @@ body {
     .property-details__masthead {
       background: #455A64;
       position: fixed;
-      height: 160px;
+      height: 100px;
     }
 
     .property-details__content {
@@ -541,6 +573,11 @@ body {
   .app-container.locked {
     overflow-x: hidden;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-main__state-labels-container {
+    display: flex;
   }
 
   .app-header.collapsed {
@@ -592,7 +629,8 @@ body {
     }
   }
 
-  .app-main__engine-labels-container {
+  .app-main__engine-labels-container,
+  .app-main__state-labels-container {
 
     will-change: transform;
     transition: transform 0.200s cubic-bezier(0,0,0.21,1);
@@ -619,6 +657,7 @@ body {
 
       .property-details__masthead {
         position: absolute;
+        height: 160px;
       }
     }
   }
@@ -637,6 +676,10 @@ body {
     flex-direction: row;
     flex: 1;
     padding: 0;
+  }
+
+  .property-details__content-header {
+    height: 160px;
   }
 
   .property-details__property-description {
