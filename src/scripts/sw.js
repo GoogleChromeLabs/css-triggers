@@ -22,7 +22,10 @@
   var FILES_TO_CACHE = [
     '/index.html',
     '/scripts/css-triggers-core.js',
-    '/styles/core.css'
+    '/styles/core.css',
+    '/third_party/Roboto/Roboto-400.woff',
+    '/third_party/Roboto/Roboto-500.woff',
+    '/third_party/Roboto/RobotoMono-400.woff'
   ];
   var CACHE_NAME = CACHE_NAME_PREFIX + '-' + CACHE_NAME_SUFFIX;
 
