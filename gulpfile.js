@@ -212,6 +212,7 @@ gulp.task('handlebars', function () {
 
   return gulp.src('./src/templates/index.hbs')
       .pipe(handlebars(triggerData, options))
+      .pipe(replace(/@VERSION@/g, version))
       .pipe(rename('index.html'))
       .pipe(gulp.dest('dist'));
 

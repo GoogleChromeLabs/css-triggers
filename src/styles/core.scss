@@ -289,7 +289,7 @@ body {
   }
 
   &.lx::before {
-    background: rgba(144,137,228,0.05);
+    background: rgba(0,0,0,0.1);
   }
 
   // Paint
@@ -308,7 +308,7 @@ body {
   }
 
   &.px .app-main__property-value {
-    background: rgba(144,170,101,0.05);
+    background: rgba(0,0,0,0.1);
   }
 
   // Composite
@@ -325,7 +325,7 @@ body {
   }
 
   &.cx::after {
-    background: rgba(69,95,21,0.05);
+    background: rgba(0,0,0,0.1);
   }
 }
 
