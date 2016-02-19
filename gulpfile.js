@@ -122,6 +122,10 @@ gulp.task('root', function () {
 
 /** HTML */
 gulp.task('html', function () {
+  gulp.src('./src/404.html')
+    .pipe(replace(/@VERSION@/g, version))
+    .pipe(rename('404-sw.html'))
+    .pipe(gulp.dest('./dist/'));
 
   return gulp.src('./src/**/*.html')
     .pipe(replace(/@VERSION@/g, version))
