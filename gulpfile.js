@@ -35,6 +35,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     handlebars = require('gulp-compile-handlebars');
 var version = null;
+var triggerData = JSON.parse(fs.readFileSync('data/data.json'));
 
 function createBundle (url) {
   return browserify({
@@ -141,7 +142,8 @@ gulp.task('third_party', function () {
 gulp.task('serviceworker', function () {
   gulp.src('./src/scripts/sw.js')
     .pipe(replace(/@VERSION@/g, version))
-    .pipe(gulp.dest('./dist/scripts'));
+    .pipe(replace(/@PROPERTIES@/g, JSON.stringify(Object.keys(triggerData.data))))
+    .pipe(gulp.dest('./dist/'));
 });
 
 /** Watches */
@@ -157,9 +159,6 @@ gulp.task('watch', function () {
 });
 
 gulp.task('handlebars', function () {
-
-  var triggerData = JSON.parse(fs.readFileSync('data/data.json'));
-
   var counterValue = 1;
   var options = {
     helpers: {
@@ -252,4 +251,3 @@ gulp.task('default', function () {
 gulp.task('dev', function () {
   return runSequence('clean', 'getversion', 'handlebars', allTasks, 'watch');
 });
-

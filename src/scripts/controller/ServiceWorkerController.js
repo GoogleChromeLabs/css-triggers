@@ -15,8 +15,12 @@
  * limitations under the License.
  */
 
-import AppController from './controller/AppController';
-import ServiceWorkerController from './controller/ServiceWorkerController';
+export default class ServiceWorkerController {
+  constructor() {
+    if(!('serviceWorker' in navigator)) {
+      return;
+    }
 
-new AppController();
-new ServiceWorkerController();
+    navigator.serviceWorker.register('/sw.js', {scope: '/'});
+  }
+}
