@@ -397,5 +397,14 @@ export default class AppController {
 
       routerInstance().then(router => router.go('/'));
     });
+
+    this.detailsCloseButton.addEventListener('blur', (e) => {
+
+      if (this.selectedProperty === null) {
+        return;
+      }
+
+      this.detailsCloseButton.focus();
+    });
   }
 }

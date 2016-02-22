@@ -182,6 +182,38 @@ gulp.task('handlebars', function () {
         return counterValue++;
       },
 
+      labelValue: function (value) {
+        var lv = '';
+        var pv = '';
+        var cv = '';
+
+        if (value.layout !== null) {
+          if (value.layout) {
+            lv = 'triggers layout';
+          } else {
+            lv = 'does not trigger layout';
+          }
+        }
+
+        if (value.paint !== null) {
+          if (value.paint) {
+            pv = 'triggers paint';
+          } else {
+            pv = 'does not trigger paint';
+          }
+        }
+
+        if (value.composite !== null) {
+          if (value.composite) {
+            cv = 'triggers compositing';
+          } else {
+            cv = 'does not trigger compositing';
+          }
+        }
+
+        return lv + ', ' + pv + ', and ' + cv;
+      },
+
       classValue: function (value) {
         var lv = 'x';
         var pv = 'x';

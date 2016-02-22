@@ -193,7 +193,12 @@ body {
 .app-main__property-link {
   text-decoration: none;
   display: block;
-  outline: none;
+  position: relative;
+
+  &:focus {
+    outline: 2px solid rgba(218, 10, 122,0.5);
+    z-index: 1;
+  }
 }
 
 .app-main__engines {

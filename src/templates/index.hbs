@@ -112,7 +112,7 @@ Paul & Surma
                 <div class="app-main__property-condition">
                   {{!-- Engine --}}
                   {{#each this}}
-                  <div  class="{{classValue this}} app-main__property-engine {{@key}}">
+                  <div title="{{@../../key}} {{labelValue this}} in {{@key}}" class="{{classValue this}} app-main__property-engine {{@key}}">
                     <span class="app-main__property-value"></span>
                   </div>
                   {{/each}}
@@ -129,7 +129,7 @@ Paul & Surma
       Made by <a href="https://twitter.com/aerotwist">Paul</a> and <a href="https://twitter.com/surmair">Surma</a>. <a href="https://github.com/googlechrome/css-triggers">See the source code</a>.
       </div>
 
-      <section class="js-details property-details" aria-hidden="true">
+      <section class="js-details property-details" tabindex="{{counter}}" aria-hidden="true">
 
         <div class="js-details-bg property-details__background"></div>
         <div class="js-details-masthead property-details__masthead"></div>
