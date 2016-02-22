@@ -75,6 +75,11 @@
           if (property === '' || VALID_PROPERTIES.indexOf(property) !== -1) {
             return caches.match('/index.html');
           }
+
+          if (req.url.indexOf('analytics.js') !== -1) {
+            return fetch(req);
+          }
+
           return caches.match('/404-sw.html');
         })
     );

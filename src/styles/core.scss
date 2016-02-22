@@ -318,7 +318,7 @@ body {
     width: 24px;
     border-radius: 2px;
     height: 6px;
-    background: rgba(144,137,228,0.2);
+    background: rgba(144,137,228,0.25);
   }
 
   &.l1::before {
@@ -326,7 +326,7 @@ body {
   }
 
   &.lx::before {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.01);
   }
 
   // Paint
@@ -335,7 +335,7 @@ body {
     width: 24px;
     border-radius: 2px;
     height: 6px;
-    background: rgba(144,170,101,0.2);
+    background: rgba(144,170,101,0.25);
     text-indent: -10000px;
     overflow: hidden;
   }
@@ -345,7 +345,7 @@ body {
   }
 
   &.px .app-main__property-value {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.01);
   }
 
   // Composite
@@ -354,7 +354,7 @@ body {
     width: 24px;
     border-radius: 2px;
     height: 6px;
-    background: rgba(69,95,21,0.2);
+    background: rgba(69,95,21,0.25);
   }
 
   &.c1::after {
@@ -362,7 +362,7 @@ body {
   }
 
   &.cx::after {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.01);
   }
 }
 
