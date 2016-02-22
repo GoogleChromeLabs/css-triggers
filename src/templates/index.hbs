@@ -112,7 +112,7 @@ Paul & Surma
                 <div class="app-main__property-condition">
                   {{!-- Engine --}}
                   {{#each this}}
-                  <div title="{{@../../key}} {{labelValue this}} in {{@key}}" class="{{classValue this}} app-main__property-engine {{@key}}">
+                  <div title="{{titleValue @../../key this @key}}" class="{{classValue this}} app-main__property-engine {{@key}}">
                     <span class="app-main__property-value"></span>
                   </div>
                   {{/each}}

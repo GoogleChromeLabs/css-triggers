@@ -182,7 +182,14 @@ gulp.task('handlebars', function () {
         return counterValue++;
       },
 
-      labelValue: function (value) {
+      titleValue: function (property, value, engine) {
+
+        if (value.layout === null &&
+            value.paint === null &&
+            value.composite === null) {
+          return 'There\'s no data available for ' + property + ' in ' + engine;
+        }
+
         var lv = '';
         var pv = '';
         var cv = '';
@@ -211,7 +218,8 @@ gulp.task('handlebars', function () {
           }
         }
 
-        return lv + ', ' + pv + ', and ' + cv;
+        return property + ' ' + lv + ', ' + pv + ', and ' +
+            cv + ' in ' + engine;
       },
 
       classValue: function (value) {
