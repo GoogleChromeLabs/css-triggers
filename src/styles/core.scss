@@ -194,9 +194,10 @@ body {
   text-decoration: none;
   display: block;
   position: relative;
+  outline: none;
 
   &:focus {
-    outline: 2px solid rgba(218, 10, 122,0.5);
+    background: #F0F0F0;
     z-index: 1;
   }
 }
