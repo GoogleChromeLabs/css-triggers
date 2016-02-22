@@ -97,6 +97,10 @@ export default class AppController {
     let direction = 'up';
     for (var i = 0; i < this.appListItems.length; i++) {
 
+      this.appListItems[i]
+          .querySelector('.js-deeplink')
+          .setAttribute('aria-hidden', 'true');
+
       // If this is the target then switch direction.
       if (this.appListItems[i] === target) {
         direction = 'down';
@@ -113,6 +117,7 @@ export default class AppController {
     // Now set up the animation of the details view.
     // Start by positioning the details element on the current target.
     this.details.style.top = `${targetTop}px`;
+    this.details.removeAttribute('aria-hidden');
 
     // Create a FLIP group for animating the background and elements.
     const flip = FLIP.group([{
@@ -169,6 +174,9 @@ export default class AppController {
     flip.play();
 
     const onFlipComplete = () => {
+      this.details.removeAttribute('aria-hidden');
+      this.details.setAttribute('tabindex', 1);
+      this.detailsCloseButton.setAttribute('tabindex', 2);
       this.details.focus();
     };
 
@@ -188,6 +196,10 @@ export default class AppController {
     const targetBCR = target.getBoundingClientRect();
 
     for (var i = 0; i < this.appListItems.length; i++) {
+      this.appListItems[i]
+          .querySelector('.js-deeplink')
+          .removeAttribute('aria-hidden');
+
       this.appListItems[i].classList.remove('up');
       this.appListItems[i].classList.remove('down');
     }
@@ -224,6 +236,7 @@ export default class AppController {
     flip.first();
 
     this.details.classList.remove('expanded');
+    this.details.setAttribute('aria-hidden', 'true');
     this.appHeader.classList.remove('collapsed');
 
     this.detailsBackground.style.opacity = 0;

@@ -398,6 +398,7 @@ body {
   z-index: 3;
   opacity: 0;
   pointer-events: none;
+  outline: none;
 }
 
 .property-details__close {
@@ -434,6 +435,10 @@ body {
   width: 100vw;
   height: 100vh;
 
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+
   /*display: flex;*/
   /*flex-direction: column;*/
 }
@@ -449,7 +454,10 @@ body {
 
 .property-details__content-header {
   height: 100px;
-  position: relative;
+  position: fixed;
+  width: 100%;
+  background: #455A64;
+  z-index: 3;
 }
 
 .property-details__property-name {
@@ -485,9 +493,7 @@ body {
   flex-direction: column;
   padding: 16px;
   flex: 1;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  margin-top: 100px;
 }
 
 .property-details__property-description {
@@ -495,7 +501,7 @@ body {
 }
 
 .property-details__breakdown {
-  padding: 16px 0 8px 0;
+  padding: 0 0 8px 0;
   order: 1;
   display: flex;
   flex-direction: row;
@@ -676,6 +682,7 @@ body {
     flex-direction: row;
     flex: 1;
     padding: 0;
+    margin-top: 160px;
   }
 
   .property-details__content-header {
@@ -692,6 +699,7 @@ body {
   }
 
   .property-details__breakdown {
+    padding-top: 16px;
     order: 2;
     display: flex;
     flex-direction: column;
