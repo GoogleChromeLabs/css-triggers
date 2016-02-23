@@ -7,7 +7,7 @@ This is a collection of files we use to run the tests. If you want to run your o
 1. Run `node generate.js`.
 1. Open the newly created html/ folder.
 1. Open a file of interest.
-1. Run `gogo()` from the console.
+1. Run `gogo()` from the console. (`gogo()` will start the profiling, mutate the CSS property, and then stop the profile. You can also manually start profiling and instead call `go()`. Your call.)
 
 If you are testing Blink via WebDriver you can also do that automatically via execute.js:
 
