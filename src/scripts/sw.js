@@ -17,8 +17,8 @@
 
 (function () {
   var VALID_PROPERTIES = @PROPERTIES@;
-  var CACHE_NAME_PREFIX = 'csstriggers';
-  var CACHE_NAME_SUFFIX = '@VERSION@';
+  var CACHE_NAME = 'csstriggers';
+  var VERSION = '@VERSION@';
   var FILES_TO_CACHE = [
     '/index.html',
     '/scripts/css-triggers-core.js',
@@ -32,42 +32,39 @@
     '/images/icon-384x384.png',
     '/404.html'
   ];
-  var CACHE_NAME = CACHE_NAME_PREFIX + '-' + CACHE_NAME_SUFFIX;
 
   self.oninstall = function (event) {
-    var reqs = FILES_TO_CACHE.map(function (url) {
-      return new Request(url);
-    });
-
     event.waitUntil(
       caches.open(CACHE_NAME)
         .then(function (cache) {
           return Promise.all(
-              FILES_TO_CACHE
-                .map(function(url) {
-                  return fetch(url).then(function(response) {
-                    return cache.put(url, response);
-                  })
-                })
+            FILES_TO_CACHE
+              .map(function(url) {
+                // Make a request for each resource with cache buster
+                // and If-Modified-Since header.
+                return cache.match(url).then(function(cachedResponse) {
+                  var opts = {
+                    headers: {}
+                  };
+                  if(cachedResponse) {
+                    opts.headers['If-Modified-Since'] = cachedResponse.headers['Last-Modified'];
+                  }
+                  return fetch(url+'?cache_bust=' + Date.now(), opts)
+                    .then(function(response) {
+                      if(response.status === 304) {
+                        return;
+                      }
+                      return cache.put(url, response);
+                    });
+                });
+              })
           );
-        })
+      })
     );
   };
 
-  // This only cleans old caches
-  self.onactivate = function (event) {
-    caches.keys().then(function (cacheNames) {
-      return Promise.all(
-        cacheNames.filter(function (cacheName) {
-          return cacheName.startsWith(CACHE_NAME_PREFIX);
-        }).filter(function (cacheName) {
-          return cacheName !== CACHE_NAME;
-        }).map(caches.delete.bind(caches))
-      );
-    });
-  };
-
-  // Always return index.html
+  // Always return index.html for valid properties, otherwise 404.html
+  // Just pass through analytics
   self.onfetch = function (event) {
     var req = event.request;
     return event.respondWith(
