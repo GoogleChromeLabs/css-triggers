@@ -30,7 +30,7 @@
     '/favicon.ico',
     '/images/icon-192x192.png',
     '/images/icon-384x384.png',
-    '/404-sw.html'
+    '/404.html'
   ];
   var CACHE_NAME = CACHE_NAME_PREFIX + '-' + CACHE_NAME_SUFFIX;
 
@@ -42,7 +42,14 @@
     event.waitUntil(
       caches.open(CACHE_NAME)
         .then(function (cache) {
-          return cache.addAll(reqs);
+          return Promise.all(
+              FILES_TO_CACHE
+                .map(function(url) {
+                  return fetch(url).then(function(response) {
+                    return cache.put(url, response);
+                  })
+                })
+          );
         })
     );
   };
@@ -80,7 +87,7 @@
             return fetch(req);
           }
 
-          return caches.match('/404-sw.html');
+          return caches.match('/404.html');
         })
     );
   };
