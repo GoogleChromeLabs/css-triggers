@@ -434,11 +434,8 @@ body {
   height: 100vh;
 
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-
-  /*display: flex;*/
-  /*flex-direction: column;*/
 }
 
 .property-details__property-name {
