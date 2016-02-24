@@ -50,7 +50,7 @@
                   // only respond if the file has changed since then.
                   if (cachedResponse) {
                     opts.headers['If-Modified-Since'] =
-                      cachedResponse.headers['Last-Modified'];
+                      cachedResponse.headers.get('Last-Modified');
                   }
                   // Also add a cache buster to the URL to keep browser cache
                   // and proxies out of this.
