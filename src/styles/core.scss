@@ -115,12 +115,6 @@ body {
   z-index: 2;
   transition: transform 0.233s cubic-bezier(0,0,0.21,1),
       opacity 0.133s cubic-bezier(0,0,0.21,1);
-
-  &::before {
-    content: '';
-    flex: 1;
-    display: block;
-  }
 }
 
 .app-header.extended .app-header__labels-container {
@@ -193,12 +187,10 @@ body {
 .app-main__property-link {
   text-decoration: none;
   display: block;
-  position: relative;
   outline: none;
 
   &:focus {
     background: #F0F0F0;
-    z-index: 1;
   }
 }
 
@@ -625,6 +617,12 @@ body {
   .app-main__engine-labels:first-of-type,
   .app-header__labels:first-of-type {
     visibility: visible;
+  }
+
+  .app-header__labels-container::before {
+    content: '';
+    flex: 1;
+    display: block;
   }
 
   .app-main__property {
