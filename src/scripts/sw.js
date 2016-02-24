@@ -39,19 +39,27 @@
         .then(function (cache) {
           return Promise.all(
             FILES_TO_CACHE
-              .map(function(url) {
-                // Make a request for each resource with cache buster
-                // and If-Modified-Since header.
-                return cache.match(url).then(function(cachedResponse) {
+              .map(function (url) {
+                // For each file in our asset list, check if we have something
+                // stored in the cache already.
+                return cache.match(url).then(function (cachedResponse) {
                   var opts = {
                     headers: {}
                   };
-                  if(cachedResponse) {
-                    opts.headers['If-Modified-Since'] = cachedResponse.headers['Last-Modified'];
+                  // If so, use the Last-Modified header to make the server
+                  // only respond if the file has changed since then.
+                  if (cachedResponse) {
+                    opts.headers['If-Modified-Since'] =
+                      cachedResponse.headers['Last-Modified'];
                   }
-                  return fetch(url+'?cache_bust=' + Date.now(), opts)
-                    .then(function(response) {
-                      if(response.status === 304) {
+                  // Also add a cache buster to the URL to keep browser cache
+                  // and proxies out of this.
+                  return fetch(url + '?cache_bust=' + Date.now(), opts)
+                    .then(function (response) {
+                      // If the server responds with 304 ("Not Modified"),
+                      // our cached version is up to date and there's nothing
+                      // we need to do for this file.
+                      if (response.status === 304) {
                         return;
                       }
                       return cache.put(url, response);
