@@ -59,7 +59,7 @@
                       // If the server responds with 304 ("Not Modified"),
                       // our cached version is up to date and there's nothing
                       // we need to do for this file.
-                      if (response.status === 304) {
+                      if (response.status === 304 || response.status >= 500) {
                         return;
                       }
                       return cache.put(url, response);
