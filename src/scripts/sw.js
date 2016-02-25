@@ -49,8 +49,14 @@
                   // If so, use the Last-Modified header to make the server
                   // only respond if the file has changed since then.
                   if (cachedResponse) {
-                    opts.headers['If-Modified-Since'] =
-                      cachedResponse.headers.get('Last-Modified');
+                    if(cachedResponse.headers.has('Last-Modified')) {
+                      opts.headers['If-Modified-Since'] =
+                        cachedResponse.headers.get('Last-Modified');
+                    }
+                    if(cachedResponse.headers.has('ETag')) {
+                      opts.headers['If-None-Match'] =
+                        cachedResponse.headers.get('ETag');
+                    }
                   }
                   // Also add a cache buster to the URL to keep browser cache
                   // and proxies out of this.

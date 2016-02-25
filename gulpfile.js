@@ -34,7 +34,7 @@ var gulp = require('gulp'),
     bump = require('gulp-bump'),
     rename = require('gulp-rename'),
     handlebars = require('gulp-compile-handlebars');
-var version = null;
+var version = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
 var triggerData = JSON.parse(fs.readFileSync('data/data.json'));
 
 function createBundle (url) {
