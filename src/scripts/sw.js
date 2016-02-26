@@ -18,11 +18,17 @@
 (function () {
   var VALID_PROPERTIES = @PROPERTIES@;
   var CACHE_NAME_PREFIX = 'csstriggers';
-  var CACHE_NAME_SUFFIX = '@VERSION@';
-  var FILES_TO_CACHE = [
+  var VERSION = '@VERSION@';
+  // Static files are expected to change every now and then
+  var DYNAMIC_CACHE = CACHE_NAME_PREFIX + '-dynamic';
+  var DYNAMIC_FILES = [
     '/index.html',
-    '/scripts/css-triggers-core.js',
-    '/styles/core.css',
+    '/scripts/css-triggers-core-@VERSION@.js',
+    '/404.html'
+  ];
+  // Static files are expected to stay the same forever
+  var STATIC_CACHE = CACHE_NAME_PREFIX + '-static';
+  var STATIC_FILES = [
     '/third_party/Roboto/Roboto-400.woff',
     '/third_party/Roboto/Roboto-500.woff',
     '/third_party/Roboto/RobotoMono-400.woff',
@@ -30,41 +36,34 @@
     '/favicon.ico',
     '/images/icon-192x192.png',
     '/images/icon-384x384.png',
-    '/404.html'
   ];
-  var CACHE_NAME = CACHE_NAME_PREFIX + '-' + CACHE_NAME_SUFFIX;
+
+  function cacheStaticFiles() {
+    return caches.has(STATIC_CACHE)
+      .then(function(cacheExists) {
+        // Static files never need to be refreshed. If the cache exists,
+        // we are done
+        if(cacheExists) {
+          return;
+        }
+        return caches.open(STATIC_CACHE)
+          .then(function(cache) {
+            return cache.addAll(STATIC_FILES);
+          });
+      });
+  }
+
+  function cacheDynamicFiles() {
+    return caches.open(DYNAMIC_CACHE)
+      .then(function(cache) {
+        return cache.addAll(DYNAMIC_FILES);
+      });
+  }
 
   self.oninstall = function (event) {
-    var reqs = FILES_TO_CACHE.map(function (url) {
-      return new Request(url);
-    });
-
     event.waitUntil(
-      caches.open(CACHE_NAME)
-        .then(function (cache) {
-          return Promise.all(
-              FILES_TO_CACHE
-                .map(function(url) {
-                  return fetch(url).then(function(response) {
-                    return cache.put(url, response);
-                  })
-                })
-          );
-        })
+      Promise.all([cacheStaticFiles(), cacheDynamicFiles()])
     );
-  };
-
-  // This only cleans old caches
-  self.onactivate = function (event) {
-    caches.keys().then(function (cacheNames) {
-      return Promise.all(
-        cacheNames.filter(function (cacheName) {
-          return cacheName.startsWith(CACHE_NAME_PREFIX);
-        }).filter(function (cacheName) {
-          return cacheName !== CACHE_NAME;
-        }).map(caches.delete.bind(caches))
-      );
-    });
   };
 
   // Always return index.html
