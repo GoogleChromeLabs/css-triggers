@@ -59,7 +59,7 @@ function buildBundle (bundleName) {
 
   var job = bundles[bundleName];
   var bundle = job.bundle;
-  var name = job.name;
+  var name = job.name();
 
   var b = bundle.bundle()
       .on('log', gutil.log.bind(gutil, 'Browserify Log'))
@@ -81,7 +81,7 @@ function buildBundle (bundleName) {
 var bundles = {
   'core': {
     url: './src/scripts/css-triggers-core.js',
-    name: 'css-triggers-core.js',
+    name: function() { return 'css-triggers-core-' + version + '.js'; },
     bundle: null
   }
 };
