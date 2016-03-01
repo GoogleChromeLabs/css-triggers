@@ -15,79 +15,96 @@
  * limitations under the License.
  */
 
-(function () {
-  var VALID_PROPERTIES = @PROPERTIES@;
-  var CACHE_NAME_PREFIX = 'csstriggers';
-  var VERSION = '@VERSION@';
-  // Static files are expected to change every now and then
-  var DYNAMIC_CACHE = CACHE_NAME_PREFIX + '-dynamic';
-  var DYNAMIC_FILES = [
-    '/index.html',
-    '/scripts/css-triggers-core-@VERSION@.js',
-    '/404.html'
-  ];
-  // Static files are expected to stay the same forever
-  var STATIC_CACHE = CACHE_NAME_PREFIX + '-static';
-  var STATIC_FILES = [
-    '/third_party/Roboto/Roboto-400.woff',
-    '/third_party/Roboto/Roboto-500.woff',
-    '/third_party/Roboto/RobotoMono-400.woff',
-    '/manifest.json',
-    '/favicon.ico',
-    '/images/icon-192x192.png',
-    '/images/icon-384x384.png',
-  ];
+var VALID_PROPERTIES = @PROPERTIES@;
+var CACHE_NAME_PREFIX = 'csstriggers';
+var VERSION = '@VERSION@';
 
-  function cacheStaticFiles() {
-    return caches.has(STATIC_CACHE)
-      .then(function(cacheExists) {
-        // Static files never need to be refreshed. If the cache exists,
-        // we are done
-        if(cacheExists) {
-          return;
-        }
-        return caches.open(STATIC_CACHE)
-          .then(function(cache) {
-            return cache.addAll(STATIC_FILES);
-          });
-      });
-  }
+// Dynamic files are expected to change every now and then
+var DYNAMIC_CACHE = CACHE_NAME_PREFIX + '-dynamic';
+var DYNAMIC_FILES = [
+  '/index.html',
+  '/scripts/css-triggers-core-@VERSION@.js',
+  '/404.html'
+];
 
-  function cacheDynamicFiles() {
-    return caches.open(DYNAMIC_CACHE)
+// Static files are expected to stay the same forever
+var STATIC_CACHE = CACHE_NAME_PREFIX + '-static';
+var STATIC_FILES = [
+  '/third_party/Roboto/Roboto-400.woff',
+  '/third_party/Roboto/Roboto-500.woff',
+  '/third_party/Roboto/RobotoMono-400.woff',
+  '/manifest.json',
+  '/favicon.ico',
+  '/images/icon-192x192.png',
+  '/images/icon-384x384.png',
+];
+
+function cacheStaticFiles() {
+  return caches.has(STATIC_CACHE)
+    .then(function(cacheExists) {
+      // Static files never need to be refreshed. If the cache exists,
+      // we are done
+      if(cacheExists) {
+        return;
+      }
+      return caches.open(STATIC_CACHE)
+        .then(function(cache) {
+          return cache.addAll(STATIC_FILES);
+        });
+    });
+}
+
+function cacheDynamicFiles() {
+  return caches.open(DYNAMIC_CACHE)
       .then(function(cache) {
-        return cache.addAll(DYNAMIC_FILES);
+        return DYNAMIC_FILES.map(url => {
+          return fetch(url)
+              .then(
+                response => cache.put(url, response),
+                err => {}
+              );
+        });
       });
-  }
+}
 
-  self.oninstall = function (event) {
-    event.waitUntil(
-      Promise.all([cacheStaticFiles(), cacheDynamicFiles()])
-    );
-  };
+self.oninstall = function (event) {
+  event.waitUntil(
+    Promise.all([cacheStaticFiles(), cacheDynamicFiles()])
+  );
+};
 
-  // Always return index.html
-  self.onfetch = function (event) {
-    var req = event.request;
-    return event.respondWith(
-      caches
-        .match(req)
-        .then(function (response) {
-          if (response) {
-            return response;
-          }
+self.onfetch = function (event) {
 
-          var property = new URL(req.url).pathname.slice(1);
-          if (property === '' || VALID_PROPERTIES.indexOf(property) !== -1) {
-            return caches.match('/index.html');
-          }
+  var req = event.request;
 
-          if (req.url.indexOf('analytics.js') !== -1) {
-            return fetch(req);
-          }
+  // Attempt to get the request from the cache. This will work for static
+  //files without additional work. For everything else, like deeplinks,
+  //analytics or 404s, we have more work to do.
+  return event.respondWith(
+    caches
+      .match(req)
+      .then(function (response) {
 
-          return caches.match('/404.html');
-        })
-    );
-  };
-})();
+        // If there's a cache match, we're done.
+        if (response) {
+          return response;
+        }
+
+        // Figure out exactly which property the user wanted to get at.
+        var property = new URL(req.url).pathname.slice(1);
+
+        // If this is a valid property, spin up the index.html file.
+        if (property === '' || VALID_PROPERTIES.indexOf(property) !== -1) {
+          return caches.match('/index.html');
+        }
+
+        // Except for analytics; that we will fetch.
+        if (req.url.indexOf('google-analytics') !== -1) {
+          return fetch(req);
+        }
+
+        // And everything else is going to get the 404.
+        return caches.match('/404.html');
+      })
+  );
+};

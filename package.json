@@ -1,6 +1,6 @@
 {
   "name": "css-triggers",
-  "version": "2.0.31",
+  "version": "2.0.34",
   "private": true,
   "engines": {
     "node": ">=0.10.0"
