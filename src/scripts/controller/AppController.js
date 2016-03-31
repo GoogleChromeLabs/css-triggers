@@ -29,6 +29,7 @@ export default class AppController {
     this.appContainer = document.querySelector('.app-container');
     this.appLinks = document.querySelectorAll('.js-deeplink');
     this.appListItems = document.querySelectorAll('.js-property');
+    this.appEngineLegend = document.querySelector('.js-legend');
     this.appEngineLabels = document.querySelector('.js-labels');
     this.appStateLabels = document.querySelector('.js-state-labels');
     this.appHeader = document.querySelector('.js-header');
@@ -111,6 +112,7 @@ export default class AppController {
     }
 
     this.appStateLabels.classList.add('up');
+    this.appEngineLegend.classList.add('up');
     this.appEngineLabels.classList.add('up');
     this.appContainer.classList.add('locked');
 
@@ -205,6 +207,7 @@ export default class AppController {
     }
 
     this.appStateLabels.classList.remove('up');
+    this.appEngineLegend.classList.remove('up');
     this.appEngineLabels.classList.remove('up');
 
     // Create a FLIP group for animating the background and elements.
