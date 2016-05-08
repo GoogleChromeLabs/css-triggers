@@ -42,7 +42,7 @@ body {
 .app-container {
   overflow-x: hidden;
   overflow-y: scroll;
-  padding-top: 56px;
+  margin-top: 56px;
   /* Not using will-change here because it creates a new initial containing
      block, which will stop any position: fixed children rendering correctly.
    */
