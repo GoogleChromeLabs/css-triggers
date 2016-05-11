@@ -153,6 +153,7 @@ gulp.task('watch', function () {
   gulp.watch('./src/**/*.scss', ['styles']);
   gulp.watch('./src/*.*', ['root']);
   gulp.watch('./src/**/*.html', ['html']);
+  gulp.watch('./src/**/*.hbs', ['handlebars']);
   gulp.watch('./src/images/**/*.*', ['images']);
   gulp.watch('./src/third_party/**/*.*', ['third_party']);
   gulp.watch('./src/scripts/sw.js', ['serviceworker']);
