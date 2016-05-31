@@ -42,7 +42,7 @@ body {
 .app-container {
   overflow-x: hidden;
   overflow-y: scroll;
-  padding-top: 56px;
+  margin-top: 56px;
   /* Not using will-change here because it creates a new initial containing
      block, which will stop any position: fixed children rendering correctly.
    */
@@ -53,10 +53,12 @@ body {
   &.locked {
     overflow-x: hidden;
     overflow-y: hidden;
+    margin-top: 0;
   }
 }
 
 .app-header {
+  pointer-events: none;
   width: 100%;
   height: 110px;
   overflow: hidden;
@@ -86,11 +88,15 @@ body {
     z-index: 0;
   }
 
-  &.extended::before {
-    transform: translateY(0);
+  &.extended {
+    pointer-events: auto;
 
-    box-shadow: 0 4px 5px 0 rgba(0,0,0,.14),
-        0 2px 9px 1px rgba(0,0,0,.12),0 4px 2px -2px rgba(0,0,0,.2);
+    &::before {
+      transform: translateY(0);
+
+      box-shadow: 0 4px 5px 0 rgba(0,0,0,.14),
+          0 2px 9px 1px rgba(0,0,0,.12),0 4px 2px -2px rgba(0,0,0,.2);
+    }
   }
 
   &.collapsed {
@@ -728,6 +734,7 @@ body {
     overflow-x: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    margin-top: 56px;
   }
 
   .app-main__state-labels-container {
