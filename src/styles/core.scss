@@ -161,6 +161,7 @@ body {
   color: #FFF;
   z-index: 1;
   position: relative;
+  opacity: 1;
 }
 
 .app-main {
@@ -608,6 +609,118 @@ body {
     }
   }
 }
+.app-main__property--hidden {
+  display: none;
+}
+
+.app-main__no-results-message {
+  display: none;
+  text-align: center;
+  padding-top: 40px;
+  color: #696969;
+}
+
+.app-main__no-results-message--visible {
+  display: block;
+}
+
+.app-main__no-results-message__filter-text {
+  font-weight: bold;
+  color: #444;
+}
+
+.filter-form__filter-widget {
+  top: 10px;
+  z-index: 1000;
+  width: 0;
+  right: 16px;
+  position: absolute;
+  border-radius: 2px;
+  padding: 2px 0;
+
+  &::after {
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.87);
+    bottom: 2px;
+    content: '';
+    height: 2px;
+    width: 10px;
+    position: absolute;
+    visibility: hidden;
+  }
+
+  &.focused::after {
+    visibility: visible;
+    width: 100%;
+  }
+}
+
+.filter-form__input {
+  background: 0;
+  border: 0;
+  margin: 0;
+  padding: 4px 0 3px;
+  width: 100%;
+  height: 20px;
+  font-family: Roboto,Helvetica,sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.87);
+  border-radius: 0;
+  color: #fff;
+  outline: none;
+}
+
+.filter-form__input-icon {
+  left: -40px;
+  position: absolute;
+  top: 0;
+  background: center center no-repeat;
+  text-indent: -30000px;
+  border: none;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  will-change: opacity;
+  padding: 0;
+  background-image: url('/third_party/MaterialIcons/ic_search_white_24px.svg');
+  z-index: 1000;
+}
+
+.filter-form__reset-icon {
+  position: absolute;
+  background: url('/third_party/MaterialIcons/ic_close_white_18px.svg') center center no-repeat;
+  text-indent: -30000px;
+  border: none;
+  width: 36px;
+  height: 36px;
+  padding: 2px;
+  top: 0;
+  right: -9px;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 500;
+}
+
+.app-header__filter--open {
+  .app-header__title {
+    opacity: 0;
+  }
+
+  .filter-form__filter-widget {
+    width: 240px;
+  }
+
+  .filter-form__reset-icon {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .filter-form__filter-widget::after {
+    transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
 
 @media (min-width: 645px) {
 
@@ -775,6 +888,16 @@ body {
 
   .property-details__property-name {
     font-size: 24px;
+  }
+
+  .app-header__filter--open {
+    .app-header__title {
+      opacity: 1;
+    }
+
+    .filter-form__filter-widget {
+      width: 360px;
+    }
   }
 }
 

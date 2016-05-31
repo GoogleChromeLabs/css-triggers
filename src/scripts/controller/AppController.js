@@ -19,6 +19,24 @@ import messages from '../messages/Messages';
 import routerInstance from '../libs/Router';
 import FLIP from '../libs/FLIP';
 
+// From Tween.js (MIT license)
+// @see https://github.com/tweenjs/tween.js/blob/master/src/Tween.js
+const timingFunctionExpand = function (t) {
+  return --t * t * t * t * t + 1;
+}
+
+const timingFunctionCollapse = function (t) {
+  if ((t *= 2) < 1) {
+    return 0.5 * t * t * t * t * t;
+  }
+
+  return 0.5 * ((t -= 2) * t * t * t * t + 2);
+};
+
+const isEscapeKey = function (evt) {
+  return 'key' in evt && evt.key === 'Escape' || evt.keyCode === 27;
+};
+
 export default class AppController {
 
   constructor () {
@@ -28,11 +46,12 @@ export default class AppController {
 
     this.appContainer = document.querySelector('.app-container');
     this.appLinks = document.querySelectorAll('.js-deeplink');
-    this.appListItems = document.querySelectorAll('.js-property');
+    this.appListItems = Array.from(document.querySelectorAll('.js-property'));
     this.appEngineLegend = document.querySelector('.js-legend');
     this.appEngineLabels = document.querySelector('.js-labels');
     this.appStateLabels = document.querySelector('.js-state-labels');
     this.appHeader = document.querySelector('.js-header');
+    this.appHeaderTitle = document.querySelector('.js-header-title');
 
     this.details = document.querySelector('.js-details');
     this.detailsCloseButton = this.details.querySelector('.js-details-close');
@@ -51,8 +70,22 @@ export default class AppController {
     this.detailsBreakdown =
         this.details.querySelector('.js-details-breakdown');
 
+    this.filterWidget = document.querySelector('.js-filter-widget');
+    this.filterToggle = document.querySelector('.js-filter-toggle');
+    this.filterReset = document.querySelector('.js-filter-reset');
+    this.filterForm = document.querySelector('.js-filter-form');
+    this.filterInput = document.querySelector('.js-filter-input');
+    this.noResultsMessage = document.querySelector('.js-no-results-message');
+    this.filterText = document.querySelector('.js-filter-text');
+
     this.showDetails = this.showDetails.bind(this);
     this.hideDetails = this.hideDetails.bind(this);
+    this.openFilter = this.openFilter.bind(this);
+    this.closeFilter = this.closeFilter.bind(this);
+    this.filterOnChange = this.filterOnChange.bind(this);
+    this.filterOnSubmit = this.filterOnSubmit.bind(this);
+    this.filterOnFocus = this.filterOnFocus.bind(this);
+    this.filterOnBlur = this.filterOnBlur.bind(this);
     this.scrollTop = 0;
 
     this.addEventListeners();
@@ -62,12 +95,6 @@ export default class AppController {
   showDetails (data) {
 
     this.selectedProperty = data;
-
-    // From Tween.js (MIT license)
-    // @see https://github.com/tweenjs/tween.js/blob/master/src/Tween.js
-    const timingFunctionExpand = function (t) {
-      return --t * t * t * t * t + 1;
-    };
 
     // Reads go first.
     const target = document
@@ -186,12 +213,6 @@ export default class AppController {
   }
 
   hideDetails (data) {
-
-    // From Tween.js (MIT license)
-    // @see https://github.com/tweenjs/tween.js/blob/master/src/Tween.js
-    const timingFunctionCollapse = function (t) {
-      return --t * t * t * t * t + 1;
-    };
 
     const selector = `.js-property[data-property="${this.selectedProperty}"]`;
     const target = document.querySelector(selector);
@@ -361,6 +382,136 @@ export default class AppController {
     });
   }
 
+  generateFilterFlipGroup (flipDuration) {
+    return [{
+      element: this.filterInput,
+      easing: timingFunctionExpand,
+      opacity: false,
+    }, {
+      element: this.filterToggle,
+      easing: timingFunctionExpand,
+      duration: flipDuration,
+      opacity: false,
+    }, {
+      element: this.filterReset,
+      easing: timingFunctionExpand,
+      duration: flipDuration,
+      transform: false,
+    }, {
+      element: this.appHeaderTitle,
+      easing: timingFunctionExpand,
+      duration: flipDuration,
+      transform: false,
+    }];
+  }
+
+  openFilter (evt) {
+    if (this.appHeader.classList.contains('app-header__filter--open')) {
+      this.filterInput.focus();
+      evt.preventDefault();
+      return;
+    }
+
+    this.filterToggle.blur();
+
+    const flip = FLIP.group(this.generateFilterFlipGroup(333));
+    flip.first();
+    this.appHeader.classList.add('app-header__filter--open');
+    flip.last();
+    flip.invert();
+    flip.play();
+
+    const onFlipComplete = () => {
+      this.filterInput.removeEventListener('flipComplete', onFlipComplete);
+
+      this.filterToggle.setAttribute('aria-hidden', 'true');
+      this.filterInput.removeAttribute('aria-hidden');
+      this.filterReset.removeAttribute('aria-hidden');
+      this.filterToggle.tabIndex = -1;
+      this.filterInput.focus();
+    };
+
+    this.filterInput.addEventListener('flipComplete', onFlipComplete);
+
+    evt.preventDefault();
+  }
+
+  closeFilter () {
+    const flip = FLIP.group(this.generateFilterFlipGroup(200));
+    flip.first();
+    this.appHeader.classList.remove('app-header__filter--open');
+    flip.last();
+    flip.invert();
+    flip.play();
+
+    const onFlipComplete = () => {
+      this.filterInput.removeEventListener('flipComplete', onFlipComplete);
+
+      this.filterToggle.removeAttribute('aria-hidden');
+      this.filterInput.setAttribute('aria-hidden', 'true');
+      this.filterReset.setAttribute('aria-hidden', 'true');
+      this.filterToggle.tabIndex = 0;
+      this.filterInput.blur();
+    };
+
+    this.filterInput.addEventListener('flipComplete', onFlipComplete);
+  }
+
+  filterOnFocus () {
+    this.filterWidget.classList.add('focused');
+  }
+
+  filterOnBlur () {
+    this.filterWidget.classList.remove('focused');
+  }
+
+  filterOnSubmit (evt) {
+    evt.preventDefault();
+    this.filterInput.blur();
+
+    // open property if only one left
+    const visibleDeeplinkSelector =
+      '.js-property:not(.app-main__property--hidden) > .js-deeplink';
+    const visibleDeeplinks =
+      document.querySelectorAll(visibleDeeplinkSelector);
+    if (visibleDeeplinks.length === 1)
+      visibleDeeplinks[0].click();
+  }
+
+  filterOnChange (evt) {
+    let visibleCount = 0;
+    let filterValue = this.filterInput.value.replace(/[^a-z\-]*/ig, '');
+
+    if (evt.type === 'reset') {
+      filterValue = '';
+      this.appListItems.forEach((appListItem) => {
+        appListItem.classList.remove('app-main__property--hidden');
+        appListItem.removeAttribute('aria-hidden');
+      });
+      this.closeFilter();
+    } else {
+      this.appListItems.forEach((appListItem) => {
+        if (appListItem.dataset['property'].includes(filterValue)) {
+          appListItem.classList.remove('app-main__property--hidden');
+          appListItem.removeAttribute('aria-hidden');
+          visibleCount++;
+        } else {
+          appListItem.classList.add('app-main__property--hidden');
+          appListItem.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+
+    if (visibleCount === 0) {
+      this.noResultsMessage.classList.add('app-main__no-results-message--visible');
+      this.noResultsMessage.removeAttribute('aria-hidden');
+      this.filterText.textContent = filterValue;
+    } else {
+      this.noResultsMessage.classList.remove('app-main__no-results-message--visible');
+      this.noResultsMessage.setAttribute('aria-hidden', 'true');
+    }
+  }
+
   addEventListeners () {
 
     const header = document.querySelector('.app-header');
@@ -385,13 +536,10 @@ export default class AppController {
     });
 
     window.addEventListener('keyup', (e) => {
-
       // Escape key only.
-      if (e.keyCode !== 27) {
-        return;
+      if (isEscapeKey(e)) {
+        routerInstance().then(router => router.go('/'));
       }
-
-      routerInstance().then(router => router.go('/'));
     });
 
     this.detailsCloseButton.addEventListener('click', (e) => {
@@ -408,6 +556,18 @@ export default class AppController {
       }
 
       this.detailsCloseButton.focus();
+    });
+
+    this.filterToggle.addEventListener('click', this.openFilter);
+    this.filterForm.addEventListener('input', this.filterOnChange);
+    this.filterForm.addEventListener('reset', this.filterOnChange);
+    this.filterForm.addEventListener('submit', this.filterOnSubmit);
+    this.filterInput.addEventListener('focus', this.filterOnFocus);
+    this.filterInput.addEventListener('blur', this.filterOnBlur);
+    this.filterInput.addEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
+        this.filterForm.reset();
+      }
     });
   }
 }
