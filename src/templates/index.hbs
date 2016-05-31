@@ -48,7 +48,16 @@ Paul & Surma
 <body>
   <!-- @VERSION@ -->
   <header class="js-header app-header">
-    <h1 class="app-header__title">CSS Triggers</h1>
+    <h1 class="app-header__title js-header-title">CSS Triggers</h1>
+
+    <form class="filter-form js-filter-form" autocomplete="off">
+      <div class="filter-form__filter-widget js-filter-widget">
+        <button type="button" tabindex="0" class="filter-form__input-icon js-filter-toggle">Filter</button>
+        <input aria-hidden="true" placeholder="filter" autocorrect="off" autocapitalize="off" class="filter-form__input js-filter-input" name="filter" type="text" autofocus="true" />
+        <button type="reset" aria-hidden="true" class="filter-form__reset-icon js-filter-reset">Reset</button>
+      </div>
+    </form>
+
     <div class="app-header__labels-container" aria-hidden="true">
 
       <div class="app-header__labels-inner-container">
@@ -131,6 +140,10 @@ Paul & Surma
           </a>
         </div>
       {{/each}}
+      </div>
+
+      <div aria-hidden="true" class="app-main__no-results-message js-no-results-message">
+        There are no properties containing "<span class='app-main__no-results-message__filter-text js-filter-text'></span>"
       </div>
 
       <div class="credits">
