@@ -30,6 +30,8 @@ var DYNAMIC_FILES = [
 // Static files are expected to stay the same forever
 var STATIC_CACHE = CACHE_NAME_PREFIX + '-static';
 var STATIC_FILES = [
+  '/third_party/MaterialIcons/ic_close_white_18px.svg',
+  '/third_party/MaterialIcons/ic_search_white_24px.svg',
   '/third_party/Roboto/Roboto-400.woff',
   '/third_party/Roboto/Roboto-500.woff',
   '/third_party/Roboto/RobotoMono-400.woff',

@@ -643,6 +643,7 @@ body {
   position: absolute;
   border-radius: 2px;
   padding: 2px 0;
+  pointer-events: auto;
 
   &::after {
     box-sizing: border-box;
