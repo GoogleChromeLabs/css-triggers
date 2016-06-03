@@ -51,6 +51,9 @@ function cacheStaticFiles() {
 function cacheDynamicFiles() {
   return caches.open(DYNAMIC_CACHE)
       .then(function(cache) {
+        // We are not using cache.addAll() here because that would stop all
+        // caching on a non 2xx status code. 404.html will be delivered with a
+        // 404 status code, and we want to cache it anyways.
         return DYNAMIC_FILES.map(url => {
           return fetch(url)
               .then(
