@@ -42,17 +42,9 @@ var STATIC_FILES = [
 ];
 
 function cacheStaticFiles() {
-  return caches.has(STATIC_CACHE)
-    .then(function(cacheExists) {
-      // Static files never need to be refreshed. If the cache exists,
-      // we are done
-      if(cacheExists) {
-        return;
-      }
-      return caches.open(STATIC_CACHE)
-        .then(function(cache) {
-          return cache.addAll(STATIC_FILES);
-        });
+  return caches.open(STATIC_CACHE)
+    .then(function(cache) {
+      return cache.addAll(STATIC_FILES);
     });
 }
 
