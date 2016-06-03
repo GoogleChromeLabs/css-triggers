@@ -112,7 +112,7 @@ gulp.task('scripts', function () {
 
 /** Root */
 gulp.task('root', function () {
-  gulp.src('./src/*.*')
+  gulp.src(['./src/*.*', '!./src/favicon.ico'])
     .pipe(replace(/@VERSION@/g, version))
     .pipe(gulp.dest('./dist/'));
 
