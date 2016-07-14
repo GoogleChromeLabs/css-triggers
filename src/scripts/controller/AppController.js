@@ -502,7 +502,7 @@ export default class AppController {
       });
     }
 
-    if (visibleCount === 0) {
+    if (visibleCount === 0 && filterValue !== '') {
       this.noResultsMessage.classList.add('app-main__no-results-message--visible');
       this.noResultsMessage.removeAttribute('aria-hidden');
       this.filterText.textContent = filterValue;
