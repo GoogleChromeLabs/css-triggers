@@ -556,12 +556,12 @@
       "composite": true
     },
     "opacity-change": {
-      "paint": true,
+      "paint": false,
       "layout": false,
       "composite": true
     },
     "opacity-initial": {
-      "paint": true,
+      "paint": false,
       "layout": false,
       "composite": true
     },
@@ -781,13 +781,13 @@
       "composite": true
     },
     "transform-change": {
-      "paint": true,
-      "layout": true,
+      "paint": false,
+      "layout": false,
       "composite": true
     },
     "transform-initial": {
-      "paint": true,
-      "layout": true,
+      "paint": false,
+      "layout": false,
       "composite": true
     },
     "transform-origin-change": {
