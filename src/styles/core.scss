@@ -677,6 +677,23 @@ body {
   border-radius: 0;
   color: #fff;
   outline: none;
+    
+    /* NOTE: Only work if selectors are seprated @link: https://css-tricks.com/almanac/selectors/p/placeholder */
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+       color: rgba(255,255,255,0.5);
+    }
+    
+    &::-moz-placeholder { /* Firefox 19+ */
+       color: rgba(255,255,255,0.5);
+    }
+    
+    &:-ms-input-placeholder { /* IE 10+ */
+       color: rgba(255,255,255,0.5);
+    }
+    
+    &:-moz-placeholder { /* Firefox 18- */
+       color: rgba(255,255,255,0.5);
+    } 
 }
 
 .filter-form__input-icon {
