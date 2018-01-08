@@ -4,6 +4,7 @@ This is a collection of files we use to run the tests. If you want to run your o
 
 1. Clone this repo.
 1. Come to this folder (_suite/).
+1. `npm install`
 1. Run `node generate.js`.
 1. Open the newly created html/ folder.
 1. Open a file of interest.
